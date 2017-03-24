@@ -3,6 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
- La modif de Melchior :3
-
+function toto() {
+    var maVar = 1;
+}
