@@ -4,11 +4,30 @@
         <title>Page principale</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="moncss.css" type="text/css">
+        <!-- Bootstrap & FontAwesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <!-- Style perso -->
+        <link rel="stylesheet" href="css/moncss.css" type="text/css">
     </head>
     <body>
-        <div>Insérer le paint ici</div>
-        <button id="validatedraw" name="validatedraw"> 
+        <div id="drawing">
+            Écran de dessin
+        </div>
+        
+        <div id="panelbuttons">
+            <button id="validatebtn" name="validatebtn" class="btn btn-primary" type="button"><i class='fa fa-check'></i></button>
+            <button id="returnbtn" name="returnbtn" class="btn btn-primary" type="button"><i class='fa fa-rotate-left'></i></button>
+            <button id="deletebtn" name="deletebtn" class="btn btn-danger" type="button"><i class='fa fa-close'></i></button>
+        </div>
     </body>
-    <script> </script>
+    <!-- JavaScripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <!--
+    <script src="three.min.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="dat-gui.js"></script>
+    <script src="require.js"></script>-->
+    <script src="js/main.js"></script>
 </html>
