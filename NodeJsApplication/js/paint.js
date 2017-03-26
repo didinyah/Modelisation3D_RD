@@ -198,7 +198,7 @@ function touchStart(event)
     event.preventDefault();
     if(isHandDrawing)
     {
-        var newPoint = {x:event.pageX, y:event.pageY};
+        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
     }
@@ -209,7 +209,7 @@ function touchMove(event)
     event.preventDefault();
     if(isHandDrawing)
     {
-        var newPoint = {x:event.pageX, y:event.pageY};
+        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
     }
@@ -220,16 +220,14 @@ function touchEnd(event)
     event.preventDefault();
     if(isHandDrawing)
     {
-        var newPoint = {x:event.pageX, y:event.pageY};
+        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
     }
-    alert("release");
 }
 
 // Ajout des évenements
 if (isMobile) {
-    alert("sur portable !");
     $("#mycanvas").on("touchstart", touchStart);
     $("#mycanvas").on('touchmove', touchMove);
     $("#mycanvas").on("touchend", touchEnd);
