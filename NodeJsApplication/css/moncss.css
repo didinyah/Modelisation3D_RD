@@ -17,18 +17,33 @@ body {
     left:0;
     top:0;
 }
+.toggle.btn {
+    position: absolute;
+    left:45px;
+    top:0;
+}
 #returnbtn {
     position: absolute;
-    left:50px;
+    left:110px;
+    top:0;
+}
+#closebtn {
+    position: absolute;
+    left:160px;
+    top:0;
+}
+#deletefigurebtn {
+    position: absolute;
+    left:210px;
     top:0;
 }
 #deletebtn {
     position: absolute;
-    left:100px;
+    left:260px;
     top:0;
 }
 #sendbtn {
     position: absolute;
-    left:150px;
+    left:310px;
     top:0;
 }

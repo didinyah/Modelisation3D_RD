@@ -80,8 +80,20 @@ function deleteBtn()
 	figures = [];
 	draw();
 }
+function gestionMainOuLignes() {
+    
+}
+if ($("#handcb").prop( "checked" )) {
+    // on dessine à main levée ici
+    
+}
+else {
+    // on fait des lignes droites ici
+    
+}
 
 $("#mycanvas").on("click", printMousePos);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', returnBtn);
 $("#deletebtn").on('click', deleteBtn);
+$("#handcb").change(gestionMainOuLignes);
