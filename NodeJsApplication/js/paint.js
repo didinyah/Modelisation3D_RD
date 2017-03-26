@@ -223,11 +223,14 @@ function touchEnd(event)
         var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
+        alert("release" + "x:" + x + " y : " + y);
     }
+    
 }
 
 // Ajout des évenements
 if (isMobile) {
+    alert("sur portable !");
     $("#mycanvas").on("touchstart", touchStart);
     $("#mycanvas").on('touchmove', touchMove);
     $("#mycanvas").on("touchend", touchEnd);
