@@ -52,14 +52,14 @@
     <script src="require.js"></script>-->
     
     <script> 
-        $(document).ready(function(){
+        var socket = io();
+        $("#sendbtn").on("click", function(){
+            socket.emit('data message', figures);
+            return false;
+        });
 
-            if(isMobile) {
-                //$("#sendbtn").show();
-            }
-            
-            
-
+        socket.on('data message', function(data){
+            console.log(data);
         });
         
     
