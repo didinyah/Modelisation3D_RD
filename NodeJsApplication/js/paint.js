@@ -193,22 +193,42 @@ function toggleHandDrawing()
 	isHandDrawing = $("#handcb").prop( "checked" );
 	mouseClicked = false;
 }
-
-function moveTouch(event)
+function touchStart(event)
 {
-	if(isHandDrawing)
-	{
-            var newPoint = {x:event.pageX, y:event.pageY};
-            points.push(newPoint);
-            draw();
-	}
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
+        points.push(newPoint);
+        draw();
+    }
+}
+
+function touchMove(event)
+{
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
+        points.push(newPoint);
+        draw();
+    }
+}
+
+function touchEnd(event)
+{
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
+        points.push(newPoint);
+        draw();
+    }
 }
 
 // Ajout des évenements
 if (isMobile) {
     console.log("sur portable !");
-    $("#mycanvas").bind('touchmove', moveTouch);
-    $("#mycanvas").on("mousemove", moveTouch);
+    $("#mycanvas").on("touchstart", touchStart);
+    $("#mycanvas").on('touchmove', touchMove);
+    $("#mycanvas").on("touchend", touchEnd);
 }
 $("#mycanvas").on("click", clickMouse);
 $("#validatebtn").on('click', validateBtn);
