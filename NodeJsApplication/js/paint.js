@@ -104,21 +104,6 @@ function magnetism(pt)
 	return pt;
 }
 
-
-//ajoute un point au click
-function moveMouse(event)
-{
-	if(isHandDrawing)
-	{
-		if(mouseClicked)
-		{
-			var newPoint = {x:event.clientX, y:event.clientY};
-			points.push(newPoint);
-			draw();
-		}
-	}
-}
-
 //ajoute un point au click
 function clickMouse(event)
 {
@@ -198,14 +183,26 @@ function toggleHandDrawing()
 	mouseClicked = false;
 }
 
-// Ajout des évenements
-$("#mycanvas").on('touchstart', clickMouse);
-$("#mycanvas").on('touchmove', moveMouse);
-$("#mycanvas").on('touchend', clickMouse);
+function moveTouch(event)
+{
+	if(isHandDrawing)
+	{
+		if(mouseClicked)
+		{
+			var newPoint = {x:event.pageX, y:event.pageY};
+			points.push(newPoint);
+			draw();
+		}
+	}
+}
 
-$("#mycanvas").on("mousemove", moveMouse);
-$("#mycanvas").on("mousemove", moveMouse);
-//$("#mycanvas").on("click", clickMouse);
+mycanvas.addEventListener("touchstart", moveTouch, false);
+
+// Ajout des évenements
+$("#mycanvas").bind('touchmove', moveTouch);
+
+$("#mycanvas").on("mousemove", moveTouch);
+$("#mycanvas").on("click", clickMouse);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 //$("#closebtn").on('click', closeBtn);
