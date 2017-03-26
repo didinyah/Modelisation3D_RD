@@ -215,7 +215,8 @@ function touchEnd(event)
         var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
-        alert("release" + "x:" + x + " y : " + y);
+        alert("pouet");
+        alert("release" + "x:" + event.changedTouches[0].pageX + " y : " + event.changedTouches[0].pageY);
     
 }
 
