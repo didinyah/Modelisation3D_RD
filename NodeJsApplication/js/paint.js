@@ -122,7 +122,6 @@ function moveMouse(event)
 //ajoute un point au click
 function clickMouse(event)
 {
-	console.log("toto");
 	var newPoint = {x:event.clientX, y:event.clientY};
 	if(isHandDrawing)
 	{
@@ -198,16 +197,11 @@ function toggleHandDrawing()
 	isHandDrawing = $("#handcb").prop( "checked" );
 	mouseClicked = false;
 }
-window.addEventListener('load', function(){ // on page load
- 
-    document.body.addEventListener('touchstart', function(e){
-        alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
-    }, false)
- 
-}, false)
 
 // Ajout des évenements
-$("#button_img").bind('touchstart', clickMouse);
+$("#mycanvas").on('touchstart', clickMouse);
+$("#mycanvas").on('touchmove', moveMouse);
+$("#mycanvas").on('touchend', clickMouse);
 
 $("#mycanvas").on("mousemove", moveMouse);
 $("#mycanvas").on("mousemove", moveMouse);
