@@ -2,7 +2,7 @@ var my_canvas = document.getElementById("mycanvas");
 var context = my_canvas.getContext("2d");
 var points = [];
 var figures = [];
-var isHandDrawing = true;
+var isHandDrawing = false;
 var mouseClicked = false;
 
 window.onload = window.onresize = function() {

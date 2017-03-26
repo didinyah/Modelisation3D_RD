@@ -7,8 +7,8 @@
         <!-- Bootstrap & FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Modelisation3D_RD/NodeJsApplication/css/bootstrap-toggle.min.css" type="text/css">
         <!-- Style perso -->
+        <link rel="stylesheet" href="Modelisation3D_RD/NodeJsApplication/css/bootstrap-toggle.min.css" type="text/css">
         <link rel="stylesheet" href="Modelisation3D_RD/NodeJsApplication/css/moncss.css" type="text/css">
     </head>
     <body>
@@ -19,34 +19,35 @@
             <div class="btn-group" role="group">
                 <button id="validatebtn" name="validatebtn" class="btn btn-success" type="button"><i class='fa fa-check'></i></button>
             </div>
-            <input id="handcb" type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-hand-pointer-o'></i>" data-off="<i class='fa fa-hand-pointer-o'></i>">
+            <div class="btn-group" role="group">
+                <button id="deletefigurebtn" name="deletefigurebtn" class="btn btn-primary" type="button"><i class='fa fa-minus-square'></i></button>
+            </div>
+            <input id="handcb" type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-hand-pencil'></i>" data-off="<i class='fa fa-hand-pencil'></i>">
             <div class="btn-group" role="group">
                 <button id="returnbtn" name="returnbtn" class="btn btn-primary" type="button"><i class='fa fa-rotate-left'></i></button>
             </div>
             <div class="btn-group" role="group">
-                <button id="closebtn" name="closebtn" class="btn btn-primary" type="button"><i class='fa fa-square-o'></i></button>
-            </div>
-            <div class="btn-group" role="group">
-                <button id="deletefigurebtn" name="deletefigurebtn" class="btn btn-primary" type="button"><i class='fa fa-minus-square'></i></button>
-            </div>
-            <div class="btn-group" role="group">
-                <button id="deletebtn" name="deletebtn" class="btn btn-danger" type="button"><i class='fa fa-close'></i></button>
+                <button id="deletebtn" name="deletebtn" class="btn btn-danger" type="button"><i class='fa fa-trash'></i></button>
             </div>
             <div class="btn-group" role="group">
                 <button id="sendbtn" name="sendbtn" class="btn btn-success" type="button"><i class='fa fa-cloud-upload'></i></button>
             </div>
         </div>
     </body>
-    <!-- JavaScripts -->
+    <!-- Scripts sur internet -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
+    <!-- Scripts persos -->
     <script src="Modelisation3D_RD/NodeJsApplication/js/bootstrap-toggle-perso.min.js"></script>
+    <script src="Modelisation3D_RD/NodeJsApplication/js/paint.js"></script>
     <!--
     <script src="three.min.js"></script>
     <script src="OrbitControls.js"></script>
     <script src="dat-gui.js"></script>
     <script src="require.js"></script>-->
-    <script src="Modelisation3D_RD/NodeJsApplication/js/paint.js"></script>
+    
     <script> 
         $(document).ready(function(){
 
