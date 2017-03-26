@@ -196,35 +196,26 @@ function toggleHandDrawing()
 function touchStart(event)
 {
     event.preventDefault();
-    if(isHandDrawing)
-    {
         var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
-    }
 }
 
 function touchMove(event)
 {
     event.preventDefault();
-    if(isHandDrawing)
-    {
         var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
-    }
 }
 
 function touchEnd(event)
 {
     event.preventDefault();
-    if(isHandDrawing)
-    {
         var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
         points.push(newPoint);
         draw();
         alert("release" + "x:" + x + " y : " + y);
-    }
     
 }
 
