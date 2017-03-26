@@ -1,8 +1,14 @@
-var my_canvas = document.getElementById("canvas");
+var my_canvas = document.getElementById("mycanvas");
 var context = my_canvas.getContext("2d");
 var points = [];
 
 var figures = [];
+
+window.onload = window.onresize = function() {
+    my_canvas = document.getElementById("mycanvas");
+    my_canvas.width = window.innerWidth;
+    my_canvas.height = window.innerHeight;
+}
 
 function drawPoint(x, y)
 {
@@ -75,7 +81,7 @@ function deleteBtn()
 	draw();
 }
 
-document.addEventListener("click", printMousePos);
-document.getElementById('validatebtn').addEventListener('click', validateBtn);
-document.getElementById('returnbtn').addEventListener('click', returnBtn);
-document.getElementById('deletebtn').addEventListener('click', deleteBtn);
+$("#mycanvas").on("click", printMousePos);
+$("#validatebtn").on('click', validateBtn);
+$("#returnbtn").on('click', returnBtn);
+$("#deletebtn").on('click', deleteBtn);
