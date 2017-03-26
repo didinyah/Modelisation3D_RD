@@ -3,7 +3,6 @@ var context = my_canvas.getContext("2d");
 var points = [];
 var figures = [];
 var isHandDrawing = false;
-var mouseClicked = false;
 
 window.onload = window.onresize = function() {
     my_canvas = document.getElementById("mycanvas");
@@ -110,18 +109,10 @@ function clickMouse(event)
 	var newPoint = {x:event.clientX, y:event.clientY};
 	if(isHandDrawing)
 	{
-		if(!mouseClicked)
-		{
-			mouseClicked = true;
-			newPoint = magnetism(newPoint);
-			draw();
-		}
-		else
-		{
-			mouseClicked = false;
+		validateBtn();
+		newPoint = magnetism(newPoint);
 		points.push(newPoint);
-			validateBtn();
-		}
+		draw();
 	}
 	else
 	{
@@ -187,16 +178,13 @@ function moveTouch(event)
 {
 	if(isHandDrawing)
 	{
-		if(mouseClicked)
-		{
 			var newPoint = {x:event.pageX, y:event.pageY};
 			points.push(newPoint);
 			draw();
-		}
 	}
 }
 
-mycanvas.addEventListener("touchstart", moveTouch, false);
+mycanvas.addEventListener("touchmove", moveTouch, false);
 
 // Ajout des évenements
 $("#mycanvas").bind('touchmove', moveTouch);
