@@ -195,7 +195,6 @@ function toggleHandDrawing()
 }
 function touchStart(event)
 {
-    event.preventDefault();
     if(isHandDrawing)
     {
         var newPoint = {x:event.pageX, y:event.pageY};
@@ -224,6 +223,8 @@ function touchEnd(event)
         points.push(newPoint);
         draw();
     }
+    
+    alert('x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY);
     alert("release");
     alert(event.changedTouches[0].pageX);
 }
@@ -231,12 +232,17 @@ function touchEnd(event)
 // Ajout des évenements
 if (isMobile) {
     alert("sur portable !");
-    window.addEventListener('load', function(){ // on page load
+    /*window.addEventListener('load', function(){ // on page load
         $("#mycanvas").on("touchstart", touchStart);
         $("#mycanvas").on('touchmove', touchMove);
         $("#mycanvas").on("touchend", touchEnd);
-    }, false);
-    
+    }, false);*/
+    var touchzone = document.getElementById("mycanvas");
+    // Add an event handler for the touchstart event
+    touchzone.addEventListener("touchstart", touchStart, false);
+    touchzone.addEventListener("touchmove", touchMove, false);
+    touchzone.addEventListener("touchend", touchEnd, false);
+
 }
 $("#mycanvas").on("click", clickMouse);
 $("#validatebtn").on('click', validateBtn);
