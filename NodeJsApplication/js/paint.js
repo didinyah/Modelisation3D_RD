@@ -225,15 +225,18 @@ function touchEnd(event)
         draw();
     }
     alert("release");
-    alert("x" + event.changedTouches[0].pageX + " y" + event.changedTouches[0].pageY);
+    alert(event.changedTouches[0].pageX);
 }
 
 // Ajout des évenements
 if (isMobile) {
     alert("sur portable !");
-    $("#mycanvas").on("touchstart", touchStart);
-    $("#mycanvas").on('touchmove', touchMove);
-    $("#mycanvas").on("touchend", touchEnd);
+    window.addEventListener('load', function(){ // on page load
+        $("#mycanvas").on("touchstart", touchStart);
+        $("#mycanvas").on('touchmove', touchMove);
+        $("#mycanvas").on("touchend", touchEnd);
+    }, false);
+    
 }
 $("#mycanvas").on("click", clickMouse);
 $("#validatebtn").on('click', validateBtn);
