@@ -198,19 +198,18 @@ function moveTouch(event)
 {
 	if(isHandDrawing)
 	{
-			var newPoint = {x:event.pageX, y:event.pageY};
-			points.push(newPoint);
-			draw();
+            var newPoint = {x:event.pageX, y:event.pageY};
+            points.push(newPoint);
+            draw();
 	}
 }
 
-mycanvas.addEventListener("touchmove", moveTouch, false);
-
 // Ajout des évenements
 if (isMobile) {
+    console.log("sur portable !");
     $("#mycanvas").bind('touchmove', moveTouch);
+    $("#mycanvas").on("mousemove", moveTouch);
 }
-$("#mycanvas").on("mousemove", moveTouch);
 $("#mycanvas").on("click", clickMouse);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
