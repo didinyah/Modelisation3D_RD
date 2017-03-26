@@ -196,28 +196,36 @@ function toggleHandDrawing()
 function touchStart(event)
 {
     event.preventDefault();
-        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
         points.push(newPoint);
         draw();
+    }
 }
 
 function touchMove(event)
 {
     event.preventDefault();
-        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
         points.push(newPoint);
         draw();
+    }
 }
 
 function touchEnd(event)
 {
     event.preventDefault();
-        var newPoint = {x:event.changedTouches[0].pageX, y:event.changedTouches[0].pageY};
+    if(isHandDrawing)
+    {
+        var newPoint = {x:event.pageX, y:event.pageY};
         points.push(newPoint);
         draw();
-        alert("pouet");
-        alert("release" + "x:" + event.changedTouches[0].pageX + " y : " + event.changedTouches[0].pageY);
-    
+    }
+    alert("release");
+    alert("x" + event.changedTouches[0].pageX + " y" + event.changedTouches[0].pageY);
 }
 
 // Ajout des évenements
