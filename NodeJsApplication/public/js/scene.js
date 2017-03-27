@@ -7,9 +7,7 @@ document.body.appendChild( renderer.domElement );
 
 // now : scène vide, on veut remplir notre scène, plusieurs manières pour représenter des formes, ce qu'on veut c'est représenter des surfaces.
 
-// on créé plusieurs points, on veut la rendre continue donc on relie les points, c'est un ensemble de points de coordonnées et on relie 2 points consécutifs par une arête
-// on a créé un objet continu, et le point qui est à mi chemin c'est le mélange de 2 autres points
-
+var allDrawingsRendered = [];
 var axisHelper = new THREE.AxisHelper( 1 ); // 1 = unité de distance
 scene.add( axisHelper );
 
@@ -18,21 +16,25 @@ camera.position.y = -215;
 camera.position.z = 400; // = recule la caméra car elle est initialisée à (0,0,0)
 
 // le truc suivant sert à voir le point source de lumière !
-var geoampoule = new THREE.SphereGeometry( 0.5, 50, 50 );
+/*var geoampoule = new THREE.SphereGeometry( 0.5, 50, 50 );
 var materialampoule = new THREE.MeshBasicMaterial( { color: 0xffffff , opacity : 0.5 , transparent : true} );
 var ampoule = new THREE.Mesh( geoampoule, materialampoule );
-scene.add( ampoule );
+scene.add( ampoule );*/
 
-function drawDrawing(data) {
-    /*var geometry2 = new THREE.BoxGeometry( 1, 1, 1 ); // geometry = ensemble des points et de la manière dont ils sont connectés
-    var materialcube2 = new THREE.MeshBasicMaterial( { color: 0x0e3456 } ); // quelque soit l'endroit où je vais regarder l'objet, il aura cette couleur là
-    var cube2 = new THREE.Mesh( geometry2, materialcube2 );
-    scene.add( cube2 );
+var gui = new dat.GUI();
+var parameters = {
+    reset : function() { 
+        if (allDrawingsRendered.length > 0) {
+            for(var i=0; i<allDrawingsRendered.length; i++) {
+                scene.remove(allDrawingsRendered[i]);
+            }
+        }
+        allDrawingsRendered = [];
+    }
+};
+var reset = gui.add(parameters, 'Reset');
 
-    cube2.position.x = -5;
-    cube2.position.y = 3;
-    cube2.position.z = -2;*/
-    
+function drawDrawing(data) { 
     var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
     for(var i=0; i<data.length; i++) {
         var geometry = new THREE.Geometry();
@@ -43,6 +45,7 @@ function drawDrawing(data) {
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
+        allDrawingsRendered.push(line);
     }
 }
 
@@ -59,7 +62,6 @@ var controls = new THREE.OrbitControls(camera, toLook); // on peut se servir de 
 function animate() {
    requestAnimationFrame(animate);
    renderer.render(scene, camera);
-   console.log(camera.position);
    controls.update();
 }
 animate();

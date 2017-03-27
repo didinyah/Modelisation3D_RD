@@ -64,6 +64,7 @@
         var socket = io();
         $("#sendbtn").on("click", function(){
             socket.emit('data message', figures);
+            alert("Figure envoyée");
             return false;
         });
 
