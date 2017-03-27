@@ -38,7 +38,7 @@ function drawDrawing(data) {
         var figureActu = data[i];
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-            geometry.vertices.push(new Vector3(pointActu.x, pointActu.y, 0));
+            geometry.vertices.push(new THREE.Vector3(pointActu.x, pointActu.y, 0));
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
