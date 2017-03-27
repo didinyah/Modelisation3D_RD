@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page principale</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap & FontAwesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <!-- Style perso -->
+        <link rel="stylesheet" href="public/css/bootstrap-toggle.min.css" type="text/css">
+        <link rel="stylesheet" href="public/css/moncss.css" type="text/css">
+    </head>
+    <body>
+        <canvas id="mycanvas">
+            This text is displayed if your browser does not support HTML5 Canvas.
+        </canvas>
+        <div id="panelbtn" class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <button id="validatebtn" name="validatebtn" class="btn btn-success" type="button"><i class='fa fa-check'></i></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button id="deletelastpointbtn" name="deletelastpointbtn" class="btn btn-primary" type="button"><i class='fa fa-rotate-left'></i></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button id="returnbtn" name="returnbtn" class="btn btn-danger" type="button"><i class='fa fa-times'></i></button>
+            </div>
+            <input id="handcb" type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-pencil'></i>" data-off="<i class='fa fa-pencil'></i>">
+            <div class="btn-group" role="group">
+                <button id="deletefigurebtn" name="deletefigurebtn" class="btn btn-primary" type="button"><i class='fa fa-minus-square'></i></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button id="deletebtn" name="deletebtn" class="btn btn-danger" type="button"><i class='fa fa-trash'></i></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button id="sendbtn" name="sendbtn" class="btn btn-success" type="button"><i class='fa fa-cloud-upload'></i></button>
+            </div>
+        </div>
+    </body>
+    <!-- Scripts sur internet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
+    <!-- Scripts persos -->
+    <script src="public/js/bootstrap-toggle-perso.min.js"></script>
+    <script src="public/js/paint.js"></script>
+    <!--
+    <script src="three.min.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="dat-gui.js"></script>
+    <script src="require.js"></script>-->
+    
+    <script> 
+        if(!isMobile) {
+            $("#panelbtn").hide();
+            $("#mycanvas").hide();
+        }
+        var socket = io();
+        $("#sendbtn").on("click", function(){
+            socket.emit('data message', figures);
+            return false;
+        });
+
+        socket.on('data message', function(data){
+            console.log(data);
+        });
+        
+    
+    </script>
+</html>
