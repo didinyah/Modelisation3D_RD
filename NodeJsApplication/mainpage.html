@@ -45,16 +45,20 @@
     <!-- Scripts persos -->
     <script src="js/bootstrap-toggle-perso.min.js"></script>
     <script src="js/paint.js"></script>
-    <!--
-    <script src="three.min.js"></script>
-    <script src="OrbitControls.js"></script>
-    <script src="dat-gui.js"></script>
-    <script src="require.js"></script>-->
+    <script src="js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/dat-gui.js"></script>
+    <script src="js/require.js"></script>
     
     <script> 
         if(!isMobile) {
             $("#panelbtn").hide();
             $("#mycanvas").hide();
+        }
+        else {
+            var my_script = document.createElement('script');
+            my_script.setAttribute('src','js/scene.js');
+            document.appendChild(my_script);
         }
         var socket = io();
         $("#sendbtn").on("click", function(){
