@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/mainpage.php');
+  res.render(__dirname + '/mainpage.php');
 });
 
 app.use(express.static(__dirname + '/public'));
