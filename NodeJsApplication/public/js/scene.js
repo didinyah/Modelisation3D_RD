@@ -13,7 +13,7 @@ document.body.appendChild( renderer.domElement );
 var axisHelper = new THREE.AxisHelper( 1 ); // 1 = unité de distance
 scene.add( axisHelper );
 
-camera.position.z = 100; // = recule la caméra car elle est initialisée à (0,0,0)
+camera.position.z = 150; // = recule la caméra car elle est initialisée à (0,0,0)
 
 
 // le truc suivant sert à voir le point source de lumière !
@@ -38,7 +38,7 @@ function drawDrawing(data) {
         var figureActu = data[i];
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-            geometry.vertices.push(new THREE.Vector3(pointActu.x, pointActu.y, 0));
+            geometry.vertices.push(new THREE.Vector3((pointActu.x)*-1, (pointActu.y)*-1, 0));
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
@@ -57,6 +57,7 @@ var controls = new THREE.OrbitControls(camera); // on peut se servir de la souri
 function animate() {
    requestAnimationFrame(animate);
    renderer.render(scene, camera);
+   console.log(camera.position);
    controls.update();
 }
 animate();
