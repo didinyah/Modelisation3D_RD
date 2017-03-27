@@ -54,11 +54,12 @@
         if(!isMobile) {
             $("#panelbtn").hide();
             $("#mycanvas").hide();
-        }
-        else {
             var my_script = document.createElement('script');
             my_script.setAttribute('src','js/scene.js');
             document.body.appendChild(my_script);
+        }
+        else {
+            
         }
         var socket = io();
         $("#sendbtn").on("click", function(){
