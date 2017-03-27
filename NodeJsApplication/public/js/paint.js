@@ -197,12 +197,9 @@ function touchStart(event)
 {
     if(isHandDrawing)
     {
-        /*var newPoint = {x:event.pageX, y:event.pageY};
-        points.push(newPoint);
-        draw();*/
+
     }
     else {
-        alert("touch with no handdraw !");
         var newPoint = {x:event.touches[0].pageX, y:event.touches[0].pageY};
         points.push(newPoint);
         draw();
@@ -223,20 +220,6 @@ function touchMove(event)
     }
 }
 
-function touchEnd(event)
-{
-    event.preventDefault();
-    if(isHandDrawing)
-    {
-        var newPoint = {x:event.pageX, y:event.pageY};
-        points.push(newPoint);
-        draw();
-    }
-    else {
-        alert("release no handdraw");
-    }
-}
-
 // Ajout des évenements
 if (isMobile) {
     alert("sur portable !");
@@ -249,7 +232,6 @@ if (isMobile) {
     // Add an event handler for the touchstart event
     touchzone.addEventListener("touchstart", touchStart, false);
     touchzone.addEventListener("touchmove", touchMove, false);
-    touchzone.addEventListener("touchend", touchEnd, false);
 
 }
 else {
