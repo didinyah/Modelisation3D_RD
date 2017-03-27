@@ -16,7 +16,6 @@ scene.add( axisHelper );
 camera.position.x = 155;
 camera.position.y = -215;
 camera.position.z = 400; // = recule la caméra car elle est initialisée à (0,0,0)
-camera.lookAt(new THREE.Vector3(175,-250,0));
 
 // le truc suivant sert à voir le point source de lumière !
 var geoampoule = new THREE.SphereGeometry( 0.5, 50, 50 );
@@ -54,6 +53,7 @@ function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le
 
 render();
 
+var toLook = {x:175, y:-250, z:0};
 var controls = new THREE.OrbitControls(camera); // on peut se servir de la souris pour bouger la caméra grâce à la fonction en dessous
 
 function animate() {
