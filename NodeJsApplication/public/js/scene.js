@@ -54,7 +54,7 @@ function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le
 render();
 
 var toLook = {x:175, y:-250, z:0};
-var controls = new THREE.OrbitControls(camera); // on peut se servir de la souris pour bouger la caméra grâce à la fonction en dessous
+var controls = new THREE.OrbitControls(camera, toLook); // on peut se servir de la souris pour bouger la caméra grâce à la fonction en dessous
 
 function animate() {
    requestAnimationFrame(animate);
