@@ -201,6 +201,7 @@ function touchStart(event)
     }
     else {
         var newPoint = {x:event.touches[0].pageX, y:event.touches[0].pageY};
+        newPoint = magnetism(newPoint);
         points.push(newPoint);
         draw();
     }
@@ -220,6 +221,19 @@ function touchMove(event)
     }
 }
 
+function touchEnd(event)
+{
+    event.preventDefault();
+    if(isHandDrawing)
+    {
+        // Gérer quand l'utilisateur fait plusieurs formes pour pas que les formes se lient et qu'il ait à faire tout en 1 trait
+        validateBtn();
+    }
+    else {
+        
+    }
+}
+
 // Ajout des évenements
 if (isMobile) {
     alert("sur portable !");
@@ -232,7 +246,7 @@ if (isMobile) {
     // Add an event handler for the touchstart event
     touchzone.addEventListener("touchstart", touchStart, false);
     touchzone.addEventListener("touchmove", touchMove, false);
-
+    touchzone.addEventListener("touchend", touchEnd, false);
 }
 else {
     $("#mycanvas").on("click", clickMouse);
