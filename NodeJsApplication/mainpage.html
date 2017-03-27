@@ -58,7 +58,7 @@
         else {
             var my_script = document.createElement('script');
             my_script.setAttribute('src','js/scene.js');
-            document.appendChild(my_script);
+            document.body.appendChild(my_script);
         }
         var socket = io();
         $("#sendbtn").on("click", function(){
