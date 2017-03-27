@@ -13,7 +13,7 @@ document.body.appendChild( renderer.domElement );
 var axisHelper = new THREE.AxisHelper( 1 ); // 1 = unité de distance
 scene.add( axisHelper );
 
-camera.position.z = 5; // = recule la caméra car elle est initialisée à (0,0,0)
+camera.position.z = 100; // = recule la caméra car elle est initialisée à (0,0,0)
 
 
 // le truc suivant sert à voir le point source de lumière !
@@ -23,14 +23,14 @@ var ampoule = new THREE.Mesh( geoampoule, materialampoule );
 scene.add( ampoule );
 
 function drawDrawing(data) {
-    var geometry2 = new THREE.BoxGeometry( 1, 1, 1 ); // geometry = ensemble des points et de la manière dont ils sont connectés
+    /*var geometry2 = new THREE.BoxGeometry( 1, 1, 1 ); // geometry = ensemble des points et de la manière dont ils sont connectés
     var materialcube2 = new THREE.MeshBasicMaterial( { color: 0x0e3456 } ); // quelque soit l'endroit où je vais regarder l'objet, il aura cette couleur là
     var cube2 = new THREE.Mesh( geometry2, materialcube2 );
     scene.add( cube2 );
 
     cube2.position.x = -5;
     cube2.position.y = 3;
-    cube2.position.z = -2;
+    cube2.position.z = -2;*/
     
     var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
     for(var i=0; i<data.length; i++) {
@@ -38,7 +38,7 @@ function drawDrawing(data) {
         var figureActu = data[i];
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-            geometry.vertices.push(new Vector2(pointActu.x, pointActu.y, 0));
+            geometry.vertices.push(new Vector3(pointActu.x, pointActu.y, 0));
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
