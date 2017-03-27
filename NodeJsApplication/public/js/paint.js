@@ -197,7 +197,13 @@ function touchStart(event)
 {
     if(isHandDrawing)
     {
-        var newPoint = {x:event.pageX, y:event.pageY};
+        /*var newPoint = {x:event.pageX, y:event.pageY};
+        points.push(newPoint);
+        draw();*/
+    }
+    else {
+        alert("touch with no handdraw !");
+        var newPoint = {x:event.touches[0].pageX, y:event.touches[0].pageY};
         points.push(newPoint);
         draw();
     }
@@ -208,9 +214,12 @@ function touchMove(event)
     event.preventDefault();
     if(isHandDrawing)
     {
-        var newPoint = {x:event.pageX, y:event.pageY};
+        var newPoint = {x:event.touches[0].pageX, y:event.touches[0].pageY};
         points.push(newPoint);
         draw();
+    }
+    else {
+        
     }
 }
 
@@ -223,10 +232,9 @@ function touchEnd(event)
         points.push(newPoint);
         draw();
     }
-    
-    alert('x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY);
-    alert("release");
-    alert(event.changedTouches[0].pageX);
+    else {
+        alert("release no handdraw");
+    }
 }
 
 // Ajout des évenements
@@ -244,7 +252,9 @@ if (isMobile) {
     touchzone.addEventListener("touchend", touchEnd, false);
 
 }
-$("#mycanvas").on("click", clickMouse);
+else {
+    $("#mycanvas").on("click", clickMouse);
+}
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 $("#deletelastpointbtn").on('click', deleteLastPointBtn);
