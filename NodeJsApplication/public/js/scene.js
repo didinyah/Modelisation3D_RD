@@ -13,8 +13,10 @@ document.body.appendChild( renderer.domElement );
 var axisHelper = new THREE.AxisHelper( 1 ); // 1 = unité de distance
 scene.add( axisHelper );
 
-camera.position.z = 150; // = recule la caméra car elle est initialisée à (0,0,0)
-
+camera.position.x = 155;
+camera.position.y = -215;
+camera.position.z = 400; // = recule la caméra car elle est initialisée à (0,0,0)
+camera.lookAt(new THREE.Vector3(175,-250,0));
 
 // le truc suivant sert à voir le point source de lumière !
 var geoampoule = new THREE.SphereGeometry( 0.5, 50, 50 );
