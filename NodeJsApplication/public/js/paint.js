@@ -236,12 +236,6 @@ function touchEnd(event)
 
 // Ajout des évenements
 if (isMobile) {
-    alert("sur portable !");
-    /*window.addEventListener('load', function(){ // on page load
-        $("#mycanvas").on("touchstart", touchStart);
-        $("#mycanvas").on('touchmove', touchMove);
-        $("#mycanvas").on("touchend", touchEnd);
-    }, false);*/
     var touchzone = document.getElementById("mycanvas");
     // Add an event handler for the touchstart event
     touchzone.addEventListener("touchstart", touchStart, false);
