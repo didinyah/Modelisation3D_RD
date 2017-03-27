@@ -32,7 +32,7 @@ var parameters = {
         allDrawingsRendered = [];
     }
 };
-var reset = gui.add(parameters, 'Reset');
+var reset = gui.add(parameters, 'reset');
 
 function drawDrawing(data) { 
     var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
