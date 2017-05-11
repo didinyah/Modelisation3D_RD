@@ -42,14 +42,22 @@ function drawDrawing(data) {
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
 	    
-	    //Création des points, et création de la 3D (pour l'instant jusqu'à 30 points en plus dans z)
-	    for(var k = 0; k < 30; k++){
-		geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, k));
-	    }
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
         allDrawingsRendered.push(line);
+	
+	//Création des points, et création de la 3D (pour l'instant jusqu'à 30 points en plus dans z)
+	for(var j=0; j<figureActu.length; j++) {
+            var pointActu = figureActu[j];
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 30));
+	    var line = new THREE.Line(geometry, material);
+	    scene.add(line);
+            allDrawingsRendered.push(line);
+        }
+       
     }
 }
 
@@ -57,6 +65,7 @@ function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le
     requestAnimationFrame( render );
     renderer.render( scene, camera ); // = fais moi le rendu de cette scène là avec le point de vue de cette caméra, projeter dans le plan image, remplir l'intérieur des pixels, etc..
 }
+
 
 render();
 
