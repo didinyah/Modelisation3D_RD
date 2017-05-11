@@ -41,7 +41,11 @@ function drawDrawing(data) {
         var figureActu = data[i];
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-            geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
+	    
+	    //Création des points, et création de la 3D (pour l'instant jusqu'à 30 points en plus dans z)
+	    for(int i = 0; i < 30; i++){
+		geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, i));
+	    }
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
