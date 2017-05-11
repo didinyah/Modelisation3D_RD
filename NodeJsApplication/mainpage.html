@@ -49,6 +49,7 @@
     <script src="js/OrbitControls.js"></script>
     <script src="js/dat-gui.js"></script>
     <script src="js/require.js"></script>
+    <script src="js/ShapeDetector.js"></script>
     
     <script> 
         if(!isMobile) {
@@ -63,14 +64,18 @@
         }
         var socket = io();
         $("#sendbtn").on("click", function(){
-            socket.emit('data message', figures);
+            socket.emit('data_message', figures);
             alert("Figure envoyée");
             return false;
         });
 
-        socket.on('data message', function(data){
+        socket.on('data_message', function(data){
             console.log(data);
             drawDrawing(data);
+        });
+        
+        socket.on('figure_detection', function(data){
+            alert("Figure reconnue : " + data);
         });
         
     
