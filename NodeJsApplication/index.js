@@ -24,7 +24,7 @@ io.on('connection', function(socket){
         var figure1 = data[0];
         var figure_reconnue = detector.spot(figure1);
         io.emit('data_message', data);
-        io.emit('figure_detection', figure_reconnue)
+        io.emit('figure_detection', figure_reconnue);
     });
 });
 

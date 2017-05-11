@@ -12,6 +12,7 @@
   "contributors": [],
   "dependencies": {
     "express": "^4.15.2",
+    "shape-detector": "^0.2.1",
     "socket.io": "^1.7.3"
   }
 }
