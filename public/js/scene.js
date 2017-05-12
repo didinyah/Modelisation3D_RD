@@ -8,6 +8,7 @@ document.body.appendChild( renderer.domElement );
 // now : scène vide, on veut remplir notre scène, plusieurs manières pour représenter des formes, ce qu'on veut c'est représenter des surfaces.
 
 var allDrawingsRendered = [];
+var allFiguresSent = [];
 var axisHelper = new THREE.AxisHelper( 1 ); // 1 = unité de distance
 scene.add( axisHelper );
 
@@ -30,6 +31,7 @@ var parameters = {
             }
         }
         allDrawingsRendered = [];
+        allFiguresSent = [];
     },
     // pour ajouter une forme au détecteur de figures
     ajoutForme : function() { 
@@ -50,6 +52,7 @@ function drawDrawing(data) {
     for(var i=0; i<data.length; i++) {
         var geometry = new THREE.Geometry();
         var figureActu = data[i];
+        allFiguresSent.push(figureActu);
         for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
 	    
@@ -90,9 +93,12 @@ function ajoutFigure()
     var nomFigure = $("#nomfigure").val();
     if (nomFigure.length >0) {
         // On ajoute la figure créée au détecteur de formes
-        console.log("ajoutdefiguuuure");
+        console.log("ajout de la forme" + nomFigure + " à la détection");
+        var figure = allFiguresSent[0];
+        detector.learn(nomFigure, figure);
     }
     $("#nomfigure").val("");
+    $('#myModal').modal('hide');
 }
 
 // quand le modal est fermé, on reprend les contrôles
