@@ -92,8 +92,8 @@
         socket.on('data_message', function(data){
             // data = array of figures
             console.log(data);
-            drawDrawing(data);
             var figuresReconnues = detectDrawing(data);
+            drawDrawing(data, figuresReconnues);
             console.log(figuresReconnues);
         });
         
