@@ -56,7 +56,7 @@ function drawDrawing(data, shape) {
 			var pointInit = figureActu[0];
 			var pointRad = figureActu[figureActu.length/2];
 			
-			var geometry = new THREE.SphereGeometry(pointRad.x-pointInit.x, 32, 32 );
+			var geometry = new THREE.SphereGeometry(150, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
