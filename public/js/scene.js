@@ -51,7 +51,7 @@ function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
 		var figureActu = data[i];
 		allFiguresSent.push(figureActu);
-			
+			console.log(shape);
 		if(shape != null && shape[i].pattern=="circle"){
 			var pointInit = figureActu[0];
 			var pointRad = figureActu[figureActu.length/2];
