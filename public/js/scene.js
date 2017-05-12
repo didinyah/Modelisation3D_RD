@@ -51,14 +51,15 @@ function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
 		var figureActu = data[i];
 		allFiguresSent.push(figureActu);
-			console.log(shape);
+		
 		if(shape != null && shape[i].pattern=="circle"){
 			var pointInit = figureActu[0];
 			var pointRad = figureActu[figureActu.length/2];
 			
-			var geometry = new THREE.SphereGeometry(150, 32, 32 );
+			var geometry = new THREE.SphereGeometry(50, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 			var sphere = new THREE.Mesh( geometry, material );
+			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else {
