@@ -4,7 +4,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var detector = require('shape-detector');
-//var detector = new ShapeDetector(ShapeDetector.defaultShapes);
+var detectortest = new ShapeDetector(ShapeDetector.defaultShapes);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/mainpage.html');
@@ -23,7 +23,7 @@ io.on('connection', function(socket){
         console.log(data);
         // data = array of figures
         var figure1 = data[0];
-        var figure_reconnue = detector.spot(figure1);
+        var figure_reconnue = detectortest.spot(figure1);
         //var figure_reconnue = "cercle";
         io.emit('data_message', data);
         io.emit('figure_detection', figure_reconnue);
