@@ -70,8 +70,14 @@
         });
 
         socket.on('data_message', function(data){
+            // data = array of figures
             console.log(data);
             drawDrawing(data);
+            var detectortest = new ShapeDetector(ShapeDetector.defaultShapes);
+            var figure1 = data[0];
+            var figure_reconnue = detectortest.spot(figure1);
+            //var figure_reconnue = "cercle";
+            console.log(figure_reconnue);
         });
         
         socket.on('figure_detection', function(data){
