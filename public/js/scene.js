@@ -65,12 +65,12 @@ function drawDrawing(data) {
 	//Création des points, et création de la 3D (pour l'instant jusqu'à 30 points en plus dans z)
 	for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
+	    
 	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 30));
-	    var line = new THREE.Line(geometry, material);
-	    scene.add(line);
-            allDrawingsRendered.push(line);
         }
+        var line = new THREE.Line(geometry, material);
+        scene.add(line);
+        allDrawingsRendered.push(line);
        
     }
 }
