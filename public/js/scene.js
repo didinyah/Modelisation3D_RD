@@ -34,6 +34,7 @@ var parameters = {
     // pour ajouter une forme au détecteur de figures
     ajoutForme : function() { 
         if (allDrawingsRendered.length > 0) {
+            controls.enabled = false;
             $('#myModal').modal('show');
         }
     }
@@ -94,6 +95,10 @@ function ajoutFigure()
     $("#nomfigure").val("");
 }
 
+// quand le modal est fermé, on reprend les contrôles
+$("#myModal").on('hidden.bs.modal', function () {
+    controls.enabled = true;
+});
 $("#confirmAjoutFigure").on('click', ajoutFigure);
 
 function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le fichier, qui va s'exécuter en continu
