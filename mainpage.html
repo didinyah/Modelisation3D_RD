@@ -44,7 +44,6 @@
     
     <!-- Scripts persos -->
     <script src="js/bootstrap-toggle-perso.min.js"></script>
-    <script src="js/ShapeDetector.js"></script>
     <script src="js/paint.js"></script>
     <script src="js/three.min.js"></script>
     <script src="js/OrbitControls.js"></script>
@@ -57,7 +56,7 @@
             $("#panelbtn").hide();
             $("#mycanvas").hide();
             var detection_script = document.createElement('script');
-            detection_script.setAttribute('src','js/scene.js');
+            detection_script.setAttribute('src','js/ShapeDetector.js');
             document.body.appendChild(detection_script);
             var scene_script = document.createElement('script');
             scene_script.setAttribute('src','js/scene.js');
@@ -77,7 +76,8 @@
             // data = array of figures
             console.log(data);
             drawDrawing(data);
-            detectDrawing(data);
+            var figuresReconnues = detectDrawing(data);
+            console.log(figuresReconnues);
         });
         
         socket.on('figure_detection', function(data){

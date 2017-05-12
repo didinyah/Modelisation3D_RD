@@ -34,6 +34,9 @@ var parameters = {
 };
 var reset = gui.add(parameters, 'reset');
 
+// Le détecteur de formes dessinées
+var detector = new ShapeDetector(ShapeDetector.defaultShapes);
+
 function drawDrawing(data) { 
     var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
     for(var i=0; i<data.length; i++) {
@@ -62,11 +65,16 @@ function drawDrawing(data) {
 }
 
 function detectDrawing(data) { 
-    var detectortest = new ShapeDetector(ShapeDetector.defaultShapes);
-    var figure1 = data[0];
-    var figure_reconnue = detectortest.spot(figure1);
-    //var figure_reconnue = "cercle";
-    console.log(figure_reconnue);
+    // On va détecter toutes les figures
+    var allFiguresReconnues = [];
+    
+    var detector = new ShapeDetector(ShapeDetector.defaultShapes);
+    for(var i=0; i<data.length; i++) {
+        var figure = data[i];
+        var figureReconnue = detector.spot(figure);
+        allFiguresReconnues.push(figureReconnue);
+    }
+    return allFiguresReconnues;
 }
 
 function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le fichier, qui va s'exécuter en continu
