@@ -48,7 +48,7 @@ var ajoutforme = gui.add(parameters, 'ajoutForme');
 var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 
 function drawDrawing(data, shape) {
-    if(shape=="circle"){
+    if(shape.pattern=="circle"){
 	var geometry = new THREE.SphereGeometry( 5, 32, 32 );
 	var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 	var sphere = new THREE.Mesh( geometry, material );
