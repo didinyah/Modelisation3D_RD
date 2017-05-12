@@ -51,6 +51,9 @@ function drawDrawing(data) {
     var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
     for(var i=0; i<data.length; i++) {
         var geometry = new THREE.Geometry();
+	var geometry3D = new THREE.Geometry();
+	var geometryFill = new THREE.Geometry();
+	
         var figureActu = data[i];
         allFiguresSent.push(figureActu);
         for(var j=0; j<figureActu.length; j++) {
@@ -62,21 +65,21 @@ function drawDrawing(data) {
         scene.add(line);
         allDrawingsRendered.push(line);
 	
-	//Création des points, et création de la 3D (pour l'instant jusqu'à 30 points en plus dans z)
+	//Création des points, et création de la 3D
 	for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
 	    
-	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
+	    geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
         }
-        var line = new THREE.Line(geometry, material);
+        var line = new THREE.Line(geometry3D, material);
         scene.add(line);
         allDrawingsRendered.push(line);
 	
 	for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
-	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
-	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
-	    var line = new THREE.Line(geometry, material);
+	    geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
+	    geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
+	    var line = new THREE.Line(geometryFill, material);
 	    scene.add(line);
 	    allDrawingsRendered.push(line);
         }
