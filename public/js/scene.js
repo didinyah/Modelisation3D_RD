@@ -66,11 +66,21 @@ function drawDrawing(data) {
 	for(var j=0; j<figureActu.length; j++) {
             var pointActu = figureActu[j];
 	    
-	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 30));
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
         }
         var line = new THREE.Line(geometry, material);
         scene.add(line);
         allDrawingsRendered.push(line);
+	
+	for(var j=0; j<figureActu.length; j++) {
+            var pointActu = figureActu[j];
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
+	    geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
+	    var line = new THREE.Line(geometry, material);
+	    scene.add(line);
+	    allDrawingsRendered.push(line);
+        }
+        
        
     }
 }
