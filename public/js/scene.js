@@ -30,9 +30,16 @@ var parameters = {
             }
         }
         allDrawingsRendered = [];
+    },
+    // pour ajouter une forme au détecteur de figures
+    ajoutForme : function() { 
+        if (allDrawingsRendered.length > 0) {
+            $('#myModal').modal('show');
+        }
     }
 };
 var reset = gui.add(parameters, 'reset');
+var ajoutforme = gui.add(parameters, 'ajoutForme');
 
 // Le détecteur de formes dessinées
 var detector = new ShapeDetector(ShapeDetector.defaultShapes);
@@ -76,6 +83,18 @@ function detectDrawing(data) {
     }
     return allFiguresReconnues;
 }
+
+function ajoutFigure()
+{
+    var nomFigure = $("#nomfigure").val();
+    if (nomFigure.length >0) {
+        // On ajoute la figure créée au détecteur de formes
+        console.log("ajoutdefiguuuure");
+    }
+    $("#nomfigure").val("");
+}
+
+$("#confirmAjoutFigure").on('click', ajoutFigure);
 
 function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le fichier, qui va s'exécuter en continu
     requestAnimationFrame( render );
