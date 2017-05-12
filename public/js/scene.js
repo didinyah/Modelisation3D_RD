@@ -93,8 +93,9 @@ function ajoutFigure()
     var nomFigure = $("#nomfigure").val();
     if (nomFigure.length >0) {
         // On ajoute la figure créée au détecteur de formes
-        console.log("ajout de la forme" + nomFigure + " à la détection");
+        console.log("ajout de la forme " + nomFigure + " à la détection");
         var figure = allFiguresSent[0];
+        console.log(figure);
         detector.learn(nomFigure, figure);
     }
     $("#nomfigure").val("");
