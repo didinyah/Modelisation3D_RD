@@ -52,7 +52,6 @@ function drawDrawing(data) {
     for(var i=0; i<data.length; i++) {
         var geometry = new THREE.Geometry();
 	var geometry3D = new THREE.Geometry();
-	var geometryFill = new THREE.Geometry();
 	
         var figureActu = data[i];
         allFiguresSent.push(figureActu);
@@ -76,7 +75,9 @@ function drawDrawing(data) {
         allDrawingsRendered.push(line);
 	
 	for(var j=0; j<figureActu.length; j++) {
+	    var geometryFill = new THREE.Geometry();
             var pointActu = figureActu[j];
+	    
 	    geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
 	    geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
 	    var line = new THREE.Line(geometryFill, material);
