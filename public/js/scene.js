@@ -49,8 +49,11 @@ var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 
 function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
+		var figureActu = data[i];
+		allFiguresSent.push(figureActu);
+			
 		if(shape[i].pattern=="circle"){
-			var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+			var geometry = new THREE.SphereGeometry( figureActu[figureActu.length/2].x - figureActu[0].x, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
@@ -60,8 +63,6 @@ function drawDrawing(data, shape) {
 			var geometry = new THREE.Geometry();
 			var geometry3D = new THREE.Geometry();
 	
-			var figureActu = data[i];
-			allFiguresSent.push(figureActu);
 			for(var j=0; j<figureActu.length; j++) {
 				var pointActu = figureActu[j];
 				geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
