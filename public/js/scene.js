@@ -55,7 +55,7 @@ function drawDrawing(data, shape) {
 		if(shape != null && shape[i].pattern=="circle"){
 			var pointInit = figureActu[0];
 			
-			var geometry = new THREE.SphereGeometry( figureActu[figureActu.length/2].x - pointInit.x, 32, 32 );
+			var geometry = new THREE.SphereGeometry(300, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
