@@ -61,6 +61,14 @@ function drawDrawing(data) {
     }
 }
 
+function detectDrawing(data) { 
+    var detectortest = new ShapeDetector(ShapeDetector.defaultShapes);
+    var figure1 = data[0];
+    var figure_reconnue = detectortest.spot(figure1);
+    //var figure_reconnue = "cercle";
+    console.log(figure_reconnue);
+}
+
 function render() { // c'est le rendu, ce qui va se passer lorsque l'on lance le fichier, qui va s'exécuter en continu
     requestAnimationFrame( render );
     renderer.render( scene, camera ); // = fais moi le rendu de cette scène là avec le point de vue de cette caméra, projeter dans le plan image, remplir l'intérieur des pixels, etc..

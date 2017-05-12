@@ -44,20 +44,24 @@
     
     <!-- Scripts persos -->
     <script src="js/bootstrap-toggle-perso.min.js"></script>
+    <script src="js/ShapeDetector.js"></script>
     <script src="js/paint.js"></script>
     <script src="js/three.min.js"></script>
     <script src="js/OrbitControls.js"></script>
     <script src="js/dat-gui.js"></script>
     <script src="js/require.js"></script>
-    <script src="js/ShapeDetector.js"></script>
+    
     
     <script> 
         if(!isMobile) {
             $("#panelbtn").hide();
             $("#mycanvas").hide();
-            var my_script = document.createElement('script');
-            my_script.setAttribute('src','js/scene.js');
-            document.body.appendChild(my_script);
+            var detection_script = document.createElement('script');
+            detection_script.setAttribute('src','js/scene.js');
+            document.body.appendChild(detection_script);
+            var scene_script = document.createElement('script');
+            scene_script.setAttribute('src','js/scene.js');
+            document.body.appendChild(scene_script);
         }
         else {
             
@@ -73,11 +77,7 @@
             // data = array of figures
             console.log(data);
             drawDrawing(data);
-            var detectortest = new ShapeDetector(ShapeDetector.defaultShapes);
-            var figure1 = data[0];
-            var figure_reconnue = detectortest.spot(figure1);
-            //var figure_reconnue = "cercle";
-            console.log(figure_reconnue);
+            detectDrawing(data);
         });
         
         socket.on('figure_detection', function(data){
