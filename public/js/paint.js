@@ -143,12 +143,21 @@ function changeColor()
 	iColor++;
 }
 
+//donne la valeur de depht a la dernière figure validée
+function applyDepth(d)
+{
+	if(figures.length > 0)
+	{
+		figures[(figures.length-1)].depth = d;
+	}
+}
+
 //sauvegarde le tracé en cours
 function validateBtn()
 {
     if(points.length>0)
 	{
-		var newFigure = {figure:points, color:iColor};
+		var newFigure = {figure:points, color:iColor, depth: 80};
 		changeColor();
 		figures.push(newFigure);
         points = []; 
@@ -205,9 +214,11 @@ function clearBtn()
 
 function toggleHandDrawing()
 {
+	applyDepth(160);
 	isHandDrawing = $("#handcb").prop( "checked" );
 	mouseClicked = false;
 }
+
 function touchStart(event)
 {
     if(isHandDrawing)

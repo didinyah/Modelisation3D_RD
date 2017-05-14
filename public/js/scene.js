@@ -79,7 +79,7 @@ function drawDrawing(data, shape) {
 			//Création des points, et création de la 3D
 			for(var j=0; j<figureActu.length; j++) {
 				var pointActu = figureActu[j];
-				geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
+				geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, data[i].depth));
 			}
 			var line = new THREE.Line(geometry3D, material);
 			scene.add(line);
@@ -90,7 +90,7 @@ function drawDrawing(data, shape) {
 				var pointActu = figureActu[j];
 	    
 				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
-				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 80));
+				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, data[i].depth));
 				var line = new THREE.Line(geometryFill, material);
 				scene.add(line);
 				allDrawingsRendered.push(line);
