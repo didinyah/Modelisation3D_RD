@@ -1,3 +1,4 @@
+var colors = ["aqua", "blue", "fuchsia", "lime", "red", "silver", "teal", "maroon", "olive", "purple", "yellow", "green"];
 var scene = new THREE.Scene(); // c'est créer le repère du monde
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );  // capteur de cette scène (caméra perspective ou orthographique)
 var renderer = new THREE.WebGLRenderer();  // on créé l'objet renderer qui créé l'objet canvas qui donne la taille qu'on lui a donné, puis on récupère le dom et on le met dans le document
@@ -49,7 +50,7 @@ var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 
 function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
-		var figureActu = data[i];
+		var figureActu = data[i].figure;
 		allFiguresSent.push(figureActu);
 		
 		if(shape != null && shape[i].pattern=="circle"){
@@ -57,13 +58,13 @@ function drawDrawing(data, shape) {
 			var pointRad = figureActu[figureActu.length/2];
 			
 			var geometry = new THREE.SphereGeometry(50, 32, 32 );
-			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
 			var sphere = new THREE.Mesh( geometry, material );
 			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else {
-			var material = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 } );
+			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
 			var geometry3D = new THREE.Geometry();
 	
@@ -101,10 +102,10 @@ function drawDrawing(data, shape) {
 function detectDrawing(data) { 
     // On va détecter toutes les figures
     var allFiguresReconnues = [];
-    
+	
     var detector = new ShapeDetector(ShapeDetector.defaultShapes);
     for(var i=0; i<data.length; i++) {
-        var figure = data[i];
+        var figure = data[i].figure;
         var figureReconnue = detector.spot(figure);
         allFiguresReconnues.push(figureReconnue);
     }
