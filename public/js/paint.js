@@ -214,7 +214,6 @@ function clearBtn()
 
 function toggleHandDrawing()
 {
-	applyDepth(160);
 	isHandDrawing = $("#handcb").prop( "checked" );
 	mouseClicked = false;
 }
