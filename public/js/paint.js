@@ -2,7 +2,7 @@ var my_canvas = document.getElementById("mycanvas");
 var context = my_canvas.getContext("2d");
 var points = [];
 var figures = [];
-var colors = ["AliceBlue ", "Aquamarine ", "Bisque ", "BlueViolet ", "Brown", "CornflowerBlue", "Crimson", "DarkGreen", "DeepPink", "Gold", "GreenYellow ", "LightPink", "LightSteelBlue"];
+var colors = ["aqua", "blue", "fuchsia", "lime", "red", "silver", "teal", "maroon", "olive", "purple", "yellow", "green"];
 var iColor = 0;
 var isHandDrawing = false;
 // On check si on est sur mobile ou pas
@@ -36,7 +36,7 @@ function handDrawing()
     if(points.length > 0)
     {
         context.beginPath();
-		context.strokeStyle = "Black";
+		context.strokeStyle = "black";
         context.setLineDash([1,1]);
         context.moveTo(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
@@ -51,13 +51,13 @@ function straightsDrawing()
     if(points.length > 0)
     {
         context.beginPath();
-		context.strokeStyle = "Black";
+		context.strokeStyle = "black";
         drawPoint(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
                 drawPoint(points[i].x, points[i].y);
         context.stroke();
 
-        context.beginPath();		
+        context.beginPath();
         context.setLineDash([1,4]);
         context.moveTo(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
