@@ -119,24 +119,6 @@ function magnetism(pt)
 	return pt;
 }
 
-//ajoute un point au click
-function clickMouse(event)
-{
-	var newPoint = {x:event.clientX, y:event.clientY};
-	if(isHandDrawing)
-	{
-		validateBtn();
-		newPoint = magnetism(newPoint);
-		points.push(newPoint);
-		draw();
-	}
-	else
-	{
-		newPoint = magnetism(newPoint);
-		points.push(newPoint);
-		draw();
-	}
-}
 //change la couleur actuelle
 function changeColor()
 {
@@ -163,6 +145,7 @@ function validateBtn()
         points = []; 
     }
     draw();
+    $('#myModalRange').modal('show');
 }
 
 //détruit le tracé en cours
@@ -259,6 +242,12 @@ function touchEnd(event)
     }
 }
 
+function ajoutRange() {
+    var depth = $('input[type="range"]').val();
+    applyDepth(depth);
+    // $('input[type="range"]').val(1);
+}
+
 // Ajout des évenements
 if (isMobile) {
     var touchzone = document.getElementById("mycanvas");
@@ -267,9 +256,7 @@ if (isMobile) {
     touchzone.addEventListener("touchmove", touchMove, false);
     touchzone.addEventListener("touchend", touchEnd, false);
 }
-else {
-    $("#mycanvas").on("click", clickMouse);
-}
+$("#confirmAjoutFigure").on('click', ajoutRange);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 $("#deletelastpointbtn").on('click', deleteLastPointBtn);
