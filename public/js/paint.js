@@ -82,7 +82,7 @@ function draw()
     for(i=0; i < figures.length; i++)
     {
 		var figure = figures[i].figure;
-		context.strokeStyle = figures[i].color;
+		context.strokeStyle = colors[(figures[i].color)%colors.length];
         context.moveTo(figure[0].x, figure[0].y);
         for(j=1; j < figure.length; j++)
         {
@@ -108,7 +108,7 @@ function magnetism(pt)
     for(i=0; i < figures.length; i++)
     {
 		var figure = figures[i].figure;
-		context.strokeStyle = figures[i].color;
+		context.strokeStyle = colors[(figures[i].color)%colors.length];
         for(j=0; j < figure.length; j++)
         {
 			var dist = Math.sqrt(Math.pow(figure[j].x - pt.x, 2) + Math.pow(figure[j].y - pt.y, 2));
@@ -142,8 +142,6 @@ function clickMouse(event)
 function changeColor()
 {
 	iColor++;
-	if(iColor >= colors.length)
-		iColor = 0;
 }
 
 //sauvegarde le tracé en cours
@@ -151,9 +149,9 @@ function validateBtn()
 {
     if(points.length>0)
 	{
-		var newFigure = {figure:points, color:colors[iColor]};
+		var newFigure = {figure:points, color:iColor};
 		changeColor();
-		figures.push(newFigure);
+//figures.push(newFigure);
         points = []; 
     }
     draw();
