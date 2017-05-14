@@ -2,6 +2,8 @@ var my_canvas = document.getElementById("mycanvas");
 var context = my_canvas.getContext("2d");
 var points = [];
 var figures = [];
+var colors = ["AliceBlue ", "Aquamarine ", "Bisque ", "BlueViolet ", "Brown", "CornflowerBlue", "Crimson", "DarkGreen", "DeepPink", "Gold", "GreenYellow ", "LightPink", "LightSteelBlue"];
+var iColor = 0;
 var isHandDrawing = false;
 // On check si on est sur mobile ou pas
 var isMobile = false; //initiate as false
@@ -79,13 +81,16 @@ function draw()
     context.beginPath();
     for(i=0; i < figures.length; i++)
     {
-        context.moveTo(figures[i][0].x, figures[i][0].y);
-        for(j=1; j < figures[i].length; j++)
+		var figure = figures[i].figure;
+		context.strokeStyle = figures[i].color;
+        context.moveTo(figure[0].x, figure[0].y);
+        for(j=1; j < figure.length; j++)
         {
-            context.lineTo(figures[i][j].x, figures[i][j].y);
+            context.lineTo(figure[j].x, figure[j].y);
         }
     }
     context.stroke();
+	context.strokeStyle = "Black";
     drawCurrentPoints();
 }
 
@@ -102,13 +107,16 @@ function magnetism(pt)
 	}
     for(i=0; i < figures.length; i++)
     {
-        for(j=0; j < figures[i].length; j++)
+		var figure = figures[i].figure;
+		context.strokeStyle = figures[i].color;
+        for(j=0; j < figure.length; j++)
         {
-			var dist = Math.sqrt(Math.pow(figures[i][j].x - pt.x, 2) + Math.pow(figures[i][j].y - pt.y, 2));
+			var dist = Math.sqrt(Math.pow(figure[j].x - pt.x, 2) + Math.pow(figure[j].y - pt.y, 2));
 			if(dist < distMagn)
-				return figures[i][j];
+				return figure[j];
         }
     }
+	context.strokeStyle = "Black";
 	return pt;
 }
 
@@ -130,12 +138,22 @@ function clickMouse(event)
 		draw();
 	}
 }
+//change la couleur actuelle
+function changeColor()
+{
+	iColor++;
+	if(iColor >= colors.length)
+		iColor = 0;
+}
 
 //sauvegarde le tracé en cours
 function validateBtn()
 {
-    if(points.length>0) {
-       figures.push(points);
+    if(points.length>0)
+	{
+		var newFigure = {figure:points, color:colors[iColor]};
+		changeColor();
+		figures.push(newFigure);
         points = []; 
     }
     draw();
