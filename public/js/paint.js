@@ -151,7 +151,7 @@ function validateBtn()
 	{
 		var newFigure = {figure:points, color:iColor};
 		changeColor();
-//figures.push(newFigure);
+		figures.push(newFigure);
         points = []; 
     }
     draw();
