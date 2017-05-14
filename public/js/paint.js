@@ -36,6 +36,7 @@ function handDrawing()
     if(points.length > 0)
     {
         context.beginPath();
+		context.strokeStyle = "Black";
         context.setLineDash([1,1]);
         context.moveTo(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
@@ -50,6 +51,7 @@ function straightsDrawing()
     if(points.length > 0)
     {
         context.beginPath();
+		context.strokeStyle = "Black";
         drawPoint(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
                 drawPoint(points[i].x, points[i].y);
@@ -78,9 +80,9 @@ function draw()
 {
     context.clearRect(0, 0, my_canvas.width, my_canvas.height);
     context.setLineDash([]);
-    context.beginPath();
     for(i=0; i < figures.length; i++)
     {
+		context.beginPath();
 		var figure = figures[i].figure;
 		context.strokeStyle = colors[(figures[i].color)%colors.length];
         context.moveTo(figure[0].x, figure[0].y);
@@ -90,7 +92,6 @@ function draw()
         }
     }
     context.stroke();
-	context.strokeStyle = "Black";
     drawCurrentPoints();
 }
 
@@ -108,7 +109,6 @@ function magnetism(pt)
     for(i=0; i < figures.length; i++)
     {
 		var figure = figures[i].figure;
-		context.strokeStyle = colors[(figures[i].color)%colors.length];
         for(j=0; j < figure.length; j++)
         {
 			var dist = Math.sqrt(Math.pow(figure[j].x - pt.x, 2) + Math.pow(figure[j].y - pt.y, 2));
@@ -116,7 +116,6 @@ function magnetism(pt)
 				return figure[j];
         }
     }
-	context.strokeStyle = "Black";
 	return pt;
 }
 
