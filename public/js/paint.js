@@ -90,8 +90,8 @@ function draw()
         {
             context.lineTo(figure[j].x, figure[j].y);
         }
+        context.stroke();
     }
-    context.stroke();
     drawCurrentPoints();
 }
 
