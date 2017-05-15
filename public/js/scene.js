@@ -88,6 +88,8 @@ function drawDrawing(data, shape) {
 				if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				}
+				
+				console.log("ReelX = " + reelX + ", deltaX = " + deltaX + ", ReelY = " + reelY + ", deltaY = " + deltaY);
 			};
 			
 			var figuAvant = figureActu[figureActu.length-2];
@@ -118,7 +120,6 @@ function drawDrawing(data, shape) {
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
-			console.log(geometry.vertices);
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
