@@ -257,7 +257,7 @@ if (isMobile) {
     touchzone.addEventListener("touchmove", touchMove, false);
     touchzone.addEventListener("touchend", touchEnd, false);
 }
-$("#confirmRangeFigure").on('click', ajoutRange);
+$("#myModalRange").on('hidden.bs.modal', ajoutRange);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 $("#deletelastpointbtn").on('click', deleteLastPointBtn);
