@@ -277,10 +277,10 @@ function ajoutFigure()
         // On ajoute la figure créée au détecteur de formes
         console.log("ajout de la forme " + nomFigure + " à la détection");
         var figure = allFiguresSent[0];
-        console.log(figure);
+        console.log(figure.figure);
         //var listVertices = listerVertices(edges, listDelta);
         
-        detector.learn(nomFigure, figure);
+        detector.learn(nomFigure, figure.figure);
         for(var i = 0; i < detector.patterns.length; i++) {
             console.log(detector.patterns[i]);
         }
