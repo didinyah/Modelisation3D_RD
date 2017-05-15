@@ -85,11 +85,9 @@ function drawDrawing(data, shape) {
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
 				
-				if(Math.abs(reelX - deltaX) > 0.01 || Math.abs(reelY - deltaY) > 0.01){
+				if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				}
-				
-				console.log("ReelX = " + reelX + ", deltaX = " + deltaX + ", ReelY = " + reelY + ", deltaY = " + deltaY);
 			};
 			
 			var figuAvant = figureActu[figureActu.length-2];
@@ -102,7 +100,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 				
-			if(Math.abs(reelX - deltaX) > 0.01 || Math.abs(reelY - deltaY) > 0.01){
+			if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
@@ -116,7 +114,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 			
-			if(Math.abs(reelX - deltaX) > 0.01 || Math.abs(reelY - deltaY) > 0.01){
+			if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
