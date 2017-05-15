@@ -73,10 +73,6 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
-			/*var calcDelta1 = figureActu[0];
-			var calcDelta2 = figureActu[1];
-			
-			var diff = Math.sqrt(Math.pow(calcDelta2.x - calcDelta1.x, 2)+Math.pow(calcDelta2.y - calcDelta1.y, 2));*/
 			var erreur = 0.0001;
 			var listDelta = [];
 			
@@ -93,8 +89,7 @@ function drawDrawing(data, shape) {
 				var reelY = figuCourante.y;
 				
 				if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-					listDelta.push([reelX, reelY, deltaX+deltaY]);
-					//geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+					listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
 					console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 				}
 			};
@@ -110,8 +105,7 @@ function drawDrawing(data, shape) {
 			var reelY = figuCourante.y;
 				
 			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-				listDelta.push([reelX, reelY, deltaX+deltaY]);
-				//geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+				listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
 			
@@ -126,17 +120,27 @@ function drawDrawing(data, shape) {
 			var reelY = figuCourante.y;
 			
 			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-				listDelta.push([reelX, reelY, deltaX+deltaY]);
-				//geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+				listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
 			
+			listDelta.sort(
+				function(x, y)
+				{
+					return x[2] > y[2];
+				}
+			);
 			
 			console.log(listDelta);
+			
+			/*geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-			scene.add(triangle);
+			scene.add(triangle);*/
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
