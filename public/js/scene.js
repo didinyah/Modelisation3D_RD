@@ -177,17 +177,24 @@ function createGeometry(forme, edges){
 	console.log(listDelta);
 	
 	var i = 0;
-	if(edges > 1){
-		var elem1 = listDelta[0];
-		var elem2 = listDelta[1];
-		if(Math.abs(elem1[0] - elem2[0]) < 2 && Math.abs(elem1[1] - elem2[1]) < 2){
-			listDelta.splice(0, 1);
-		}
-	}
+	var listVertices = [];
 	while (i < edges){
 		var elem = listDelta[i];
-		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
-		i++;
+		var ok = true;
+		
+		for(var j = 0; j < listVertices.length && ok == true; j++){
+			var vertCourant = listVertices[j];
+			if(Math.abs(vertCourant[0] - elem[0]) < 2 && Math.abs(vertCourant[1] - elem[1]) < 2){
+				listDelta.splice(i, 1);
+				ok = false;
+			}
+		}
+		
+		if(ok){
+			geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
+			listVertices.push(elem);
+			i++;
+		}
 	}
 	
 	console.log(geometry.vertices);
