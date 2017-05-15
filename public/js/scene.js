@@ -57,18 +57,58 @@ function drawDrawing(data, shape) {
 			var pointInit = figureActu[0];
 			var pointRad = figureActu[figureActu.length/2];
 			
-//<<<<<<< HEAD
 			var geometrySphere = new THREE.SphereGeometry(50, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 			var sphere = new THREE.Mesh( geometrySphere, material );
-//=======
+			
 			var geometry = new THREE.SphereGeometry(50, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
 			var sphere = new THREE.Mesh( geometry, material );
-//>>>>>>> 8091e3d6a133b5bc856b396da7e5de8771678770
+			
 			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
+		} else if (shape != null && shape[i].pattern=="square"){
+			
+		} else if (shape != null && shape[i].pattern=="triangle"){
+			var geometry = new THREE.Geometry()
+			
+			//Boucle de reconnaissance des angles, qui créé les vertices 
+			for(int i = 1; i < figureActu.length-1; i++){
+				var deltaX = figureActu[i+1].x - figureActu[i-1].x;
+				var deltaY = figureActu[i+1].y - figureActu[i-1].y;
+				
+				var reelX = figureActu[i].x;
+				var reelY = figureActu[i].y;
+				
+				if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
+					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+				}
+			};
+			var deltaX = figureActu[figureActu.length-2].x - figureActu[figureActu.length-2].x;
+			var deltaY = figureActu[0].y - figureActu[0].y;
+				
+			var reelX = figureActu[figureActu.length-1].x;
+			var reelY = figureActu[figureActu.length-1].y;
+				
+			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
+				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			}
+			
+			deltaX = figureActu[figureActu.length-1].x - figureActu[figureActu.length-1].x;
+			deltaY = figureActu[1].y - figureActu[1].y;
+				
+			reelX = figureActu[0].x;
+			reelY = figureActu[0].y;
+				
+			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
+				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			}
+
+			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+
+			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
+			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
