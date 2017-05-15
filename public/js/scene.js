@@ -57,13 +57,9 @@ function drawDrawing(data, shape) {
 		
 		if(shape != null && shape[i].pattern=="circle"){
 			var pointInit = figureActu[0];
-			var pointRad = figureActu[figureActu.length/2];
+			var pointRad = figureActu[Math.abs(figureActu.length/2)];
 			
-			var geometrySphere = new THREE.SphereGeometry(50, 32, 32 );
-			var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
-			var sphere = new THREE.Mesh( geometrySphere, material );
-			
-			var geometry = new THREE.SphereGeometry(50, 32, 32 );
+			var geometry = new THREE.SphereGeometry((pointRad-pointInit)/2, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
 			var sphere = new THREE.Mesh( geometry, material );
 			
@@ -76,12 +72,14 @@ function drawDrawing(data, shape) {
 			m.side = THREE.DoubleSide;
 			var square = new THREE.Mesh(g, m);
 			scene.add(square);
+			allDrawingsRendered.push(square);
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var g = createGeometry(figureActu, 3, prof);
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide;
 			var triangle = new THREE.Mesh(g, m);
 			scene.add(triangle);
+			allDrawingsRendered.push(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
