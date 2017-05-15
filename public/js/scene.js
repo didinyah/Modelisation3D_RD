@@ -77,7 +77,8 @@ function drawDrawing(data, shape) {
 			var calcDelta2 = figureActu[1];
 			
 			var diff = Math.sqrt(Math.pow(calcDelta2.x - calcDelta1.x, 2)+Math.pow(calcDelta2.y - calcDelta1.y, 2));
-			console.log(diff);
+			var erreur = 5.6*diff/13.4;
+			console.log(erreur);
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
@@ -91,7 +92,7 @@ function drawDrawing(data, shape) {
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
 				
-				if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
+				if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 					console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 				}
@@ -107,7 +108,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 				
-			if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
+			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
@@ -122,7 +123,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 			
-			if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
+			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
