@@ -180,7 +180,7 @@ function createGeometry(forme, edges){
 	if(edges > 1){
 		var elem1 = listDelta[0];
 		var elem2 = listDelta[1];
-		if(Math.abs(elem1[0] - elem2[0]) < 0.001 && Math.abs(elem1[1] - elem2[1]) < 0.001){
+		if(Math.abs(elem1[0] - elem2[0]) < 2 && Math.abs(elem1[1] - elem2[1]) < 2){
 			listDelta.splice(0, 1);
 		}
 	}
