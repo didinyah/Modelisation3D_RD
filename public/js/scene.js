@@ -75,7 +75,7 @@ function drawDrawing(data, shape) {
 			
 			var calcDelta1 = figureActu[0];
 			var calcDelta2 = figureActu[figureActu.length/2];
-			console.log(calcDelta1 + " " + calcDelta2);
+			console.log(figureActu.length/2);
 			var diff = Math.abs((calcDelta2.x - calcDelta1.x)/(calcDelta2.y - calcDelta1.y));
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
