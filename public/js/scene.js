@@ -127,20 +127,23 @@ function drawDrawing(data, shape) {
 			listDelta.sort(
 				function(x, y)
 				{
-					return x[2] > y[2];
+					return x[2] < y[2];
 				}
 			);
 			
-			console.log(listDelta);
+			var elem1 = listDelta[0];
+			var elem2 = listDelta[1];
+			var elem3 = listDelta[2];
 			
-			/*geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
-			geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
-			geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
+			geometry.vertices.push(new THREE.Vector3(elem1[0],elem1[1],0));
+			geometry.vertices.push(new THREE.Vector3(elem2[0],elem2[1],0));
+			geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
 			
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+			geometry.material.color.setHex( 0xffffff );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-			scene.add(triangle);*/
+			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
