@@ -51,7 +51,7 @@ var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
 		var figureActu = data[i].figure;
-		var prof = data[i].depth*5;
+		var prof = data[i].depth;
 		
 		allFiguresSent.push(figureActu);
 		
