@@ -141,7 +141,7 @@ function drawDrawing(data, shape) {
 			
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 			
-			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial({ color: 0xffffff) });
+			var triangle = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
 			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
