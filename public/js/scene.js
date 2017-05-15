@@ -184,7 +184,7 @@ function createGeometry(forme, edges){
 		
 		for(var j = 0; j < listVertices.length && ok == true; j++){
 			var vertCourant = listVertices[j];
-			if(Math.abs(vertCourant[0] - elem[0]) < 2 && Math.abs(vertCourant[1] - elem[1]) < 2){
+			if(Math.abs(vertCourant[0] - elem[0]) < 20 && Math.abs(vertCourant[1] - elem[1]) < 20){
 				listDelta.splice(i, 1);
 				ok = false;
 			}
