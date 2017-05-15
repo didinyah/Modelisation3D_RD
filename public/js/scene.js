@@ -140,9 +140,10 @@ function drawDrawing(data, shape) {
 			geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
 			
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-			geometry.material.color.setHex( 0xffffff );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
+			triangle.material.color.setHex( 0xffffff );
+			
 			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
