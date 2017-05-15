@@ -73,12 +73,11 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
-			var calcDelta1 = figureActu[0];
+			/*var calcDelta1 = figureActu[0];
 			var calcDelta2 = figureActu[1];
 			
-			var diff = Math.sqrt(Math.pow(calcDelta2.x - calcDelta1.x, 2)+Math.pow(calcDelta2.y - calcDelta1.y, 2));
-			var erreur = 5.6*diff/13.3;
-			console.log(erreur);
+			var diff = Math.sqrt(Math.pow(calcDelta2.x - calcDelta1.x, 2)+Math.pow(calcDelta2.y - calcDelta1.y, 2));*/
+			var erreur = 0.5;
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
