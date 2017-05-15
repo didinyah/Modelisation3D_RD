@@ -71,7 +71,7 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="square"){
 			
 		} else if (shape != null && shape[i].pattern=="triangle"){
-			var triangle = new THREE.Mesh(createGeometry(figureActu), new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false }));
+			var triangle = new THREE.Mesh(createGeometry(figureActu, 3), new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false }));
 			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
@@ -109,7 +109,7 @@ function drawDrawing(data, shape) {
 	}
 }
 
-function createGeometry(forme){
+function createGeometry(forme, edges){
 	var geometry = new THREE.Geometry()
 			
 	var erreur = 0.0001;
@@ -169,19 +169,20 @@ function createGeometry(forme){
 			return x[2] < y[2];
 		}
 	);
-		
-	var elem1 = listDelta[0];
-	var elem2 = listDelta[1];
-	var elem3 = listDelta[2];
 	
-	if(elem1[0] - elem2[0] < 0.001 && elem1[1] - elem2[1] < 0.001){
-		elem2 = elem3;
-		elem3 = listDelta[3];
+	
+	var i = 0;
+	if(edges > 1){
+		var elem1 = listDelta[0];
+		var elem2 = listDelta[1];
+		if(Math.abs(elem1[0] - elem2[0]) < 0.001 && Math.abs(elem1[1] - elem2[1]) < 0.001)
+			i = 1;
 	}
-			
-	geometry.vertices.push(new THREE.Vector3(elem1[0],elem1[1],0));
-	geometry.vertices.push(new THREE.Vector3(elem2[0],elem2[1],0));
-	geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
+	while (i < edges){
+		var elem = listDelta[i];
+		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
+		i++;
+	}
 	
 	geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 	return geometry;
