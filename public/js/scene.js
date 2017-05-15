@@ -135,6 +135,11 @@ function drawDrawing(data, shape) {
 			var elem2 = listDelta[1];
 			var elem3 = listDelta[2];
 			
+			if(elem1[0] - elem2[0] < 0.001 && elem1[1] - elem2[1] < 0.001){
+				elem2 = elem3;
+				elem3 = listDelta[3];
+			}
+			
 			geometry.vertices.push(new THREE.Vector3(elem1[0],elem1[1],0));
 			geometry.vertices.push(new THREE.Vector3(elem2[0],elem2[1],0));
 			geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
