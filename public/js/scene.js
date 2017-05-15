@@ -263,7 +263,7 @@ function detectDrawing(data) {
     for(var i=0; i<data.length; i++) {
         var figure = data[i].figure;
         var figureReconnue = detector.spot(figure);
-        figureReconnue.color = colors[figure.color];
+        figureReconnue.color = colors[data[i].color];
         allFiguresReconnues.push(figureReconnue);
     }
     return allFiguresReconnues;
