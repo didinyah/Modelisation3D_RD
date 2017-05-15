@@ -73,6 +73,11 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
+			var calcDelta1 = figureActu[0];
+			var calcDelta2 = figureActu[figureActu.length/2];
+			
+			var diff = Math.abs((calcDelta2.x - calcDelta1.x)/(calcDelta2.y - calcDelta1.y));
+			console.log(diff);
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
 				var figuAvant = figureActu[i-1];
@@ -85,7 +90,7 @@ function drawDrawing(data, shape) {
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
 				
-				if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
+				if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 					console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 				}
@@ -101,7 +106,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 				
-			if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
+			if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
@@ -116,7 +121,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 			
-			if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
+			if(Math.abs(reelX - deltaX) > 0.1 || Math.abs(reelY - deltaY) > 0.1){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
