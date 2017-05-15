@@ -69,10 +69,11 @@ function drawDrawing(data, shape) {
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square"){
-			
+			var f = figureActu[i];
+			console.log(f.x);
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
-			console.log(figureActu[i]);
+			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
 				var deltaX = figureActu[i+1].x - figureActu[i-1].x;
