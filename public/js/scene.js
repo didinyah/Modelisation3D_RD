@@ -183,7 +183,7 @@ function createGeometry(forme, edges){
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
 		i++;
 	}
-	
+	console.log(geometry.vertices);
 	geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 	return geometry;
 }
