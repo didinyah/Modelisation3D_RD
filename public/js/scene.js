@@ -73,6 +73,7 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
+			console.log(1);
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
 				var figuAvant = figureActu[i-1];
@@ -90,6 +91,7 @@ function drawDrawing(data, shape) {
 				}
 			};
 			
+			console.log(2);
 			var figuAvant = figureActu[figureActu.length-2];
 			var figuApres = figureActu[0];
 			var figuCourante = figureActu[figureActu.length-1];
@@ -104,6 +106,7 @@ function drawDrawing(data, shape) {
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
+			console.log(3);
 			var figuAvant = figureActu[figureActu.length-1];
 			var figuApres = figureActu[1];
 			var figuCourante = figureActu[0];
@@ -119,7 +122,8 @@ function drawDrawing(data, shape) {
 			}
 
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-
+			
+			console.log(4);
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
 			scene.add(triangle);
 		} else {
