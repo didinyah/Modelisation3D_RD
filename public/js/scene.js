@@ -69,7 +69,7 @@ function drawDrawing(data, shape) {
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square"){
-			
+			console.log(figureActu);
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
