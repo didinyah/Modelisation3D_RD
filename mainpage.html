@@ -110,9 +110,6 @@
                   output.innerHTML = value;
                 }
             });
-            $(document).on('input', 'input[type="range"]', function(e) {
-                output.innerHTML = e.currentTarget.value;
-            });
         }
         
         var socket = io();
