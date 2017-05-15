@@ -74,9 +74,10 @@ function drawDrawing(data, shape) {
 			var geometry = new THREE.Geometry()
 			
 			var calcDelta1 = figureActu[0];
-			var calcDelta2 = figureActu[figureActu.length/2];
-			console.log(figureActu.length/2);
+			var calcDelta2 = figureActu[Math.trunc(figureActu.length/2)];
+			
 			var diff = Math.abs((calcDelta2.x - calcDelta1.x)/(calcDelta2.y - calcDelta1.y));
+			console.log(diff);
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
