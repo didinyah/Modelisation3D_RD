@@ -51,7 +51,7 @@ var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
 		var figureActu = data[i].figure;
-		var prof = data[i].depth*20;
+		var prof = data[i].depth*5;
 		
 		allFiguresSent.push(figureActu);
 		
@@ -207,11 +207,11 @@ function createGeometry(forme, edges, depth){
 	
 	for(var i = 0; i < listVertices.length; i++){
 		var elem = listVertices[i];
-		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
+		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1]*(-1),0));
 	}
 	for(var i = 0; i < listVertices.length; i++){
 		var elem = listVertices[i];
-		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],depth));
+		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1]*(-1),depth));
 	}
 	
 	for(var i = 0; i < edges-2; i++){
