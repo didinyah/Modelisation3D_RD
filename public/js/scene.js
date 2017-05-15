@@ -224,7 +224,7 @@ function createGeometry(forme, edges, depth){
 	geometry.faces.push(new THREE.Face3(0, edges, edges+1));
 	geometry.faces.push(new THREE.Face3(0, edges, edges*2-1));
 	
-	for(var i = 1; i < edges-1){
+	for(var i = 1; i < edges-1; i++){
 		geometry.faces.push(new THREE.Face3(i, 1+i, edges+1+i));
 		geometry.faces.push(new THREE.Face3(i, edges+i, edges+1+i));
 	}
