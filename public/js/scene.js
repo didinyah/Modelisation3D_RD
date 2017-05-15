@@ -48,17 +48,17 @@ var ajoutforme = gui.add(parameters, 'ajoutForme');
 // Le détecteur de formes dessinées
 var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 
+//Création du dessin en 3D
 function drawDrawing(data, shape) {
+	//Parcours de chaque figure
 	for(var i=0; i<data.length; i++) {
-		var figureActu = data[i].figure;
-		var prof = data[i].depth;
+		var figureActu = data[i].figure; //Figure courante
+		var prof = data[i].depth; //Profondeur désirée
 		
 		allFiguresSent.push(figureActu);
 		
-		if(shape != null && shape[i].pattern=="circle"){
-			var pointInit = figureActu[0];
-			var pointRad = figureActu[Math.abs(figureActu.length/2)];
-			
+		if(shape != null && shape[i].pattern=="circle"){ //Si la forme est reconnue en tant que cercle
+			//Création d'une sphere selon la profondeur et de la couleur du dessin en 2D
 			var geometry = new THREE.SphereGeometry(prof, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
 			var sphere = new THREE.Mesh( geometry, material );
@@ -66,25 +66,26 @@ function drawDrawing(data, shape) {
 			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
-		} else if (shape != null && shape[i].pattern=="square"){
-			var g = createGeometry(figureActu, 4, prof);
+		} else if (shape != null && shape[i].pattern=="square"){ //Si c'est un carré
+			var g = createGeometry(figureActu, 4, prof); //Création de la forme 3D
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
-			m.side = THREE.DoubleSide;
+			m.side = THREE.DoubleSide; //Pour avoir la couleur des deux côtés des faces
 			var square = new THREE.Mesh(g, m);
 			scene.add(square);
 			allDrawingsRendered.push(square);
-		} else if (shape != null && shape[i].pattern=="triangle"){
-			var g = createGeometry(figureActu, 3, prof);
+		} else if (shape != null && shape[i].pattern=="triangle"){ : //Si c'est un triangle 
+			var g = createGeometry(figureActu, 3, prof);//Création de la forme 3D
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide;
 			var triangle = new THREE.Mesh(g, m);
 			scene.add(triangle);
 			allDrawingsRendered.push(triangle);
-		} else {
+		} else { //Si la fogure n'est pas reconnue
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
 			var geometry3D = new THREE.Geometry();
 	
+			//On créé une ligne entre chaque point de la face
 			for(var j=0; j<figureActu.length; j++) {
 				var pointActu = figureActu[j];
 				geometry.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
@@ -93,7 +94,7 @@ function drawDrawing(data, shape) {
 			scene.add(line);
 			allDrawingsRendered.push(line);
 	
-			//Création des points, et création de la 3D
+			//Création des points de la face en profondeur
 			for(var j=0; j<figureActu.length; j++) {
 				var pointActu = figureActu[j];
 				geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, prof));
@@ -102,6 +103,7 @@ function drawDrawing(data, shape) {
 			scene.add(line);
 			allDrawingsRendered.push(line);
 	
+			//Création des lignes entre les deux faces
 			for(var j=0; j<figureActu.length; j++) {
 				var geometryFill = new THREE.Geometry();
 				var pointActu = figureActu[j];
@@ -116,29 +118,36 @@ function drawDrawing(data, shape) {
 	}
 }
 
+//Fonction qui créé une forme en 3D selon la forme en 2D, le nombre d'angles de la forme, la profondeur voulue
 function createGeometry(forme, edges, depth){
 	var geometry = new THREE.Geometry()
 			
 	var erreur = 0.0001;
 	var listDelta = [];
 			
-	//Boucle de reconnaissance des angles, qui créé les vertices 
+	//Boucle de reconnaissance des angles de la forme
 	for(var i = 1; i < forme.length-1; i++){
+		//Pour chaque point on prend celui d'avant et celui d'après
 		var figuAvant = forme[i-1];
 		var figuApres = forme[i+1];
 		var figuCourante = forme[i];
 		
+		//Coordonnées calculées du point
 		var deltaX = (figuApres.x + figuAvant.x)/2;
 		var deltaY = (figuApres.y + figuAvant.y)/2;
 		
+		//Coordonnées réelles du point
 		var reelX = figuCourante.x;
 		var reelY = figuCourante.y;
-				
+			
+		//Si la différence entre calculée et réelle est trop grande, il y a un angle, ce n'est pas une ligne
 		if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
+			//On ajoute les coordonnées de l'angle à la liste, ainsi qu'un indicateur de confiance pour la validité de l'angle, et le numéro de l'angle
 			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY), listDelta.length]);
 		}
 	};
 		
+	//De même que la boucle, sauf qu'on traite le dernier et le premier point du tableau
 	var figuAvant = forme[forme.length-2];
 	var figuApres = forme[0];
 	var figuCourante = forme[forme.length-1];
@@ -166,7 +175,8 @@ function createGeometry(forme, edges, depth){
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY), listDelta.length]);
 	}
-			
+	
+	//Les angles sont triés par l'indicateur pour ne garder que les meilleurs angles, qui vont correspondre aux vrais angles
 	listDelta.sort(
 		function(x, y)
 		{
@@ -178,12 +188,16 @@ function createGeometry(forme, edges, depth){
 	
 	var i = 0;
 	var listVertices = [];
+	
+	//Il s'agit là de trouver tous les angles que nous allons utiliser
+	//Il s'avère que certains angles sont les mêmes que d'autres à 1px près par exemple, nous les éliminons afin de n'en garder qu'un
 	while (i < edges){
 		var elem = listDelta[i];
 		var ok = true;
 		
 		for(var j = 0; j < listVertices.length && ok == true; j++){
 			var vertCourant = listVertices[j];
+			//Test des angles deux à deux avec ceux que nous avons déjà gardé, afin de ne pas en avoir un en double
 			if(Math.abs(vertCourant[0] - elem[0]) < 20 && Math.abs(vertCourant[1] - elem[1]) < 20){
 				listDelta.splice(i, 1);
 				ok = false;
@@ -196,6 +210,7 @@ function createGeometry(forme, edges, depth){
 		}
 	}
 	
+	//Retriage des angles selon leur ordre afin de pouvoir créer les faces
 	listVertices.sort(
 		function(x, y)
 		{
@@ -203,20 +218,23 @@ function createGeometry(forme, edges, depth){
 		}
 	);
 	
+	//Création des vertices de la face avant
 	for(var i = 0; i < listVertices.length; i++){
 		var elem = listVertices[i];
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1]*(-1),0));
 	}
+	//Création des vertices de la face arrière
 	for(var i = 0; i < listVertices.length; i++){
 		var elem = listVertices[i];
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1]*(-1),depth));
 	}
-	
+	//Création des faces selon les vertices créés
 	for(var i = 0; i < edges-2; i++){
 		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
 		geometry.faces.push(new THREE.Face3(edges, edges+i+1, edges+i+2));
 	}
 	
+	//Calcul des triangles à créer pour compléter la figure 3D, en fonction du nombre d'angles
 	geometry.faces.push(new THREE.Face3(0, 1, edges+1));
 	geometry.faces.push(new THREE.Face3(0, edges-1, edges*2-1));
 	geometry.faces.push(new THREE.Face3(0, edges, edges+1));
