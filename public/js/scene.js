@@ -114,7 +114,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 			
-			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
+			if(reelX - deltaX < 0.1 && reelY - deltaY < 0.1){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
