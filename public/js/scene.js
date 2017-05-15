@@ -72,7 +72,7 @@ function drawDrawing(data, shape) {
 			
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
-			console.log(figureActu[i].x);
+			console.log(figureActu[i]);
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
 				var deltaX = figureActu[i+1].x - figureActu[i-1].x;
