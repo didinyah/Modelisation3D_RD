@@ -121,7 +121,7 @@
                 devices.forEach(function (device) {
                     if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
                         idCameraBack = device.deviceId;
-                        alert("ID 1 : " + idCameraBack);
+                        alert("ID back : " + idCameraBack);
                     }
                 });
             })
@@ -136,8 +136,10 @@
             var video = document.querySelector('video');
 
             function handleSuccess(stream) {
+              alert("dans le success, id : " +constraints.video.deviceId);
               window.stream = stream; // stream available to console
               video.src = window.URL.createObjectURL(stream);
+              
             }
 
             function handleError(error) {
