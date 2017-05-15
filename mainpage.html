@@ -111,7 +111,7 @@
             });
             
             // on met la caméra du téléphone
-            var Id;
+            var idCameraBack;
             //List cameras and microphones.
             if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
                 alert("enumerateDevices() not supported.");
@@ -119,11 +119,10 @@
             navigator.mediaDevices.enumerateDevices()
             .then(function (devices) {
                 devices.forEach(function (device) {
-                    /*if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
-                        
-                    }*/
-                    Id = device.deviceId;
-                    alert("label : " + device.label + ";;; kind : " + device.kind);
+                    if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
+                        idCameraBack = device.deviceId;
+                        alert("ID 1 : " + idCameraBack);
+                    }
                 });
             })
             .catch(function (err) {
@@ -131,7 +130,7 @@
             });
         
             var constraints = {
-                video: true
+                video: {deviceId: idCameraBack}
             };
 
             var video = document.querySelector('video');
