@@ -117,12 +117,12 @@ function drawDrawing(data, shape) {
 			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
-
+			
+			console.log(geometry.vertices);
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
 			scene.add(triangle);
-			console.log(ok);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
