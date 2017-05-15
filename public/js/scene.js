@@ -74,7 +74,7 @@ function drawDrawing(data, shape) {
 			var geometry = new THREE.Geometry()
 			
 			var calcDelta1 = figureActu[0];
-			var calcDelta2 = figureActu[Math.trunc(figureActu.length/2)];
+			var calcDelta2 = figureActu[1];
 			
 			var diff = Math.abs((calcDelta2.x - calcDelta1.x)/(calcDelta2.y - calcDelta1.y));
 			console.log(diff);
