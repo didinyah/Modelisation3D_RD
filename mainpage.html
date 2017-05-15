@@ -111,6 +111,24 @@
             });
             
             // on met la caméra du téléphone
+            var Id;
+            //List cameras and microphones.
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                alert("enumerateDevices() not supported.");
+            }
+            navigator.mediaDevices.enumerateDevices()
+            .then(function (devices) {
+                devices.forEach(function (device) {
+                    if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
+                        Id = device.deviceId;
+                        alert("ID 1 : " + Id);
+                    }
+                });
+            })
+            .catch(function (err) {
+                console.log(err.name + ": " + err.message);
+            });
+        
             var constraints = {
                 video: true
             };
