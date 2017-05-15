@@ -4,9 +4,10 @@
         <title>Page principale</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap & FontAwesome -->
+        <!-- Bootstrap & FontAwesome && Range-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.0/rangeslider.min.css">
         <!-- Style perso -->
         <link rel="stylesheet" href="css/bootstrap-toggle.min.css" type="text/css">
         <link rel="stylesheet" href="css/moncss.css" type="text/css">
@@ -15,19 +16,20 @@
         <canvas id="mycanvas">
             This text is displayed if your browser does not support HTML5 Canvas.
         </canvas>
+        <video id="vid" autoplay></video>
         <div id="panelbtn" class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
                 <button id="validatebtn" name="validatebtn" class="btn btn-success" type="button"><i class='fa fa-check'></i></button>
             </div>
             <div class="btn-group" role="group">
-                <button id="deletelastpointbtn" name="deletelastpointbtn" class="btn btn-primary" type="button"><i class='fa fa-rotate-left'></i></button>
+                <button id="deletelastpointbtn" name="deletelastpointbtn" class="btn btn-primary" type="button"><i class='fa fa-eraser'></i></button>
             </div>
             <div class="btn-group" role="group">
                 <button id="returnbtn" name="returnbtn" class="btn btn-danger" type="button"><i class='fa fa-times'></i></button>
             </div>
             <input id="handcb" type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-pencil'></i>" data-off="<i class='fa fa-pencil'></i>">
             <div class="btn-group" role="group">
-                <button id="deletefigurebtn" name="deletefigurebtn" class="btn btn-primary" type="button"><i class='fa fa-minus-square'></i></button>
+                <button id="deletefigurebtn" name="deletefigurebtn" class="btn btn-primary" type="button"><i class='fa fa-rotate-left'></i></button>
             </div>
             <div class="btn-group" role="group">
                 <button id="deletebtn" name="deletebtn" class="btn btn-danger" type="button"><i class='fa fa-trash'></i></button>
@@ -55,11 +57,30 @@
             </div>
           </div>
         </div>
+        
+        <!-- Modal pour slider (depth de la figure) et forme de la figure -->
+        <div class="modal fade" id="myModalRange" tabindex="-1" role="dialog" aria-labelledby="myModalRangeLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalRangeLabel">Longueur de la figure ?</h4>
+              </div>
+              <div class="modal-body form-group">
+                  <input type="range" min="0" max="5" step="0.5" value="1">
+                  <h5><output>1</output></h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="confirmRangeFigure" class="btn btn-primary">Valider</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </body>
     <!-- Scripts sur internet -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.0/rangeslider.min.js"></script>
     
     <!-- Scripts persos -->
     <script src="js/bootstrap-toggle-perso.min.js"></script>
@@ -80,12 +101,57 @@
             document.body.appendChild(scene_script);
         }
         else {
+            // on initialise le slider (profondeur des figures)
+            $('input[type="range"]').rangeslider({
+                polyfill: false,
+                onSlide: function(position, value) {
+                  var output = document.querySelectorAll('output')[0];
+                  output.innerHTML = value;
+                }
+            });
             
+            // On met la caméra du téléphone
+            //List cameras and microphones.
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                alert("enumerateDevices() not supported.");
+            }
+            
+            var haveId = navigator.mediaDevices.enumerateDevices()
+                .then(function(devices){ 
+                    return devices.find(function(d) {
+                        return d.kind == "videoinput" && d.label.indexOf("back") >= 0
+                    })
+                });
+
+            // Put event listeners into place
+            window.addEventListener("DOMContentLoaded", function () {
+                haveId.then(function(dev) {
+                    //alert("ID back : "+ dev.deviceId);
+                    var constraints = { video: { deviceId: dev.deviceId } };
+                    var video = document.querySelector('video');
+                    navigator.mediaDevices.getUserMedia(constraints).
+                      then(handleSuccess).catch(handleError);
+                    function handleSuccess(stream) {
+                      window.stream = stream; // stream available to console
+                      video.src = window.URL.createObjectURL(stream);
+
+                    }
+
+                    function handleError(error) {
+                        alert("error !");
+                      console.log('navigator.getUserMedia error: ', error);
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err.name + ": " + err.message);
+                });
+            });
         }
+        
         var socket = io();
         $("#sendbtn").on("click", function(){
             socket.emit('data_message', figures);
-            alert("Figure envoyée");
+            alert("Figure(s) envoyée(s)");
             return false;
         });
 
@@ -97,9 +163,9 @@
             console.log(figuresReconnues);
         });
         
-        socket.on('figure_detection', function(data){
+        /*socket.on('figure_detection', function(data){
             alert("Figure reconnue : " + data);
-        });
+        });*/
         
     
     </script>

@@ -8,12 +8,20 @@ body {
     overflow:hidden
 }
 #mycanvas {
-    position:fixed;
+    position:absolute;
     left:0;
     top:0;
+    z-index:10;
 }
 #panelbtn {
     position: absolute;
     left:0;
     bottom:0;
+    z-index:20;
+}
+
+#vid {
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }

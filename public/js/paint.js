@@ -2,6 +2,8 @@ var my_canvas = document.getElementById("mycanvas");
 var context = my_canvas.getContext("2d");
 var points = [];
 var figures = [];
+var colors = ["aqua", "blue", "fuchsia", "lime", "red", "silver", "teal", "maroon", "olive", "purple", "yellow", "green"];
+var iColor = 0;
 var isHandDrawing = false;
 // On check si on est sur mobile ou pas
 var isMobile = false; //initiate as false
@@ -34,6 +36,7 @@ function handDrawing()
     if(points.length > 0)
     {
         context.beginPath();
+		context.strokeStyle = "black";
         context.setLineDash([1,1]);
         context.moveTo(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
@@ -48,12 +51,13 @@ function straightsDrawing()
     if(points.length > 0)
     {
         context.beginPath();
+		context.strokeStyle = "black";
         drawPoint(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
                 drawPoint(points[i].x, points[i].y);
         context.stroke();
 
-        context.beginPath();		
+        context.beginPath();
         context.setLineDash([1,4]);
         context.moveTo(points[0].x, points[0].y);
         for(i=1; i < points.length; i++)
@@ -76,16 +80,18 @@ function draw()
 {
     context.clearRect(0, 0, my_canvas.width, my_canvas.height);
     context.setLineDash([]);
-    context.beginPath();
     for(i=0; i < figures.length; i++)
     {
-        context.moveTo(figures[i][0].x, figures[i][0].y);
-        for(j=1; j < figures[i].length; j++)
+		context.beginPath();
+		var figure = figures[i].figure;
+		context.strokeStyle = colors[(figures[i].color)%colors.length];
+        context.moveTo(figure[0].x, figure[0].y);
+        for(j=1; j < figure.length; j++)
         {
-            context.lineTo(figures[i][j].x, figures[i][j].y);
+            context.lineTo(figure[j].x, figure[j].y);
         }
+        context.stroke();
     }
-    context.stroke();
     drawCurrentPoints();
 }
 
@@ -102,43 +108,44 @@ function magnetism(pt)
 	}
     for(i=0; i < figures.length; i++)
     {
-        for(j=0; j < figures[i].length; j++)
+		var figure = figures[i].figure;
+        for(j=0; j < figure.length; j++)
         {
-			var dist = Math.sqrt(Math.pow(figures[i][j].x - pt.x, 2) + Math.pow(figures[i][j].y - pt.y, 2));
+			var dist = Math.sqrt(Math.pow(figure[j].x - pt.x, 2) + Math.pow(figure[j].y - pt.y, 2));
 			if(dist < distMagn)
-				return figures[i][j];
+				return figure[j];
         }
     }
 	return pt;
 }
 
-//ajoute un point au click
-function clickMouse(event)
+//change la couleur actuelle
+function changeColor()
 {
-	var newPoint = {x:event.clientX, y:event.clientY};
-	if(isHandDrawing)
+	iColor++;
+}
+
+//donne la valeur de depht a la dernière figure validée
+function applyDepth(d)
+{
+	if(figures.length > 0)
 	{
-		validateBtn();
-		newPoint = magnetism(newPoint);
-		points.push(newPoint);
-		draw();
-	}
-	else
-	{
-		newPoint = magnetism(newPoint);
-		points.push(newPoint);
-		draw();
+		figures[(figures.length-1)].depth = d;
 	}
 }
 
 //sauvegarde le tracé en cours
 function validateBtn()
 {
-    if(points.length>0) {
-       figures.push(points);
+    if(points.length>0)
+	{
+		var newFigure = {figure:points, color:iColor, depth: 80};
+		changeColor();
+		figures.push(newFigure);
         points = []; 
     }
     draw();
+    $('#myModalRange').modal('show');
 }
 
 //détruit le tracé en cours
@@ -193,6 +200,7 @@ function toggleHandDrawing()
 	isHandDrawing = $("#handcb").prop( "checked" );
 	mouseClicked = false;
 }
+
 function touchStart(event)
 {
     if(isHandDrawing)
@@ -234,6 +242,13 @@ function touchEnd(event)
     }
 }
 
+function ajoutRange() {
+    var depth = $('input[type="range"]').val();
+    applyDepth(depth*10);
+    // $('input[type="range"]').val(1);
+    $('#myModalRange').modal('hide');
+}
+
 // Ajout des évenements
 if (isMobile) {
     var touchzone = document.getElementById("mycanvas");
@@ -242,9 +257,11 @@ if (isMobile) {
     touchzone.addEventListener("touchmove", touchMove, false);
     touchzone.addEventListener("touchend", touchEnd, false);
 }
-else {
-    $("#mycanvas").on("click", clickMouse);
-}
+// clic sur valider va trigger la fonction juste en dessous, donc pas besoin d'appliquer 2 fois la depth
+$("#confirmRangeFigure").on('click', function() {
+    $('#myModalRange').modal('hide');
+});
+$("#myModalRange").on('hidden.bs.modal', ajoutRange);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 $("#deletelastpointbtn").on('click', deleteLastPointBtn);
