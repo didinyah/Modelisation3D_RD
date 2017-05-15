@@ -1,3 +1,4 @@
+var flexibiliteScore = 0.85 // flexibilité de reconnaissance des formes
 var colors = ["aqua", "blue", "fuchsia", "lime", "red", "silver", "teal", "maroon", "olive", "purple", "yellow", "green"];
 var scene = new THREE.Scene(); // c'est créer le repère du monde
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );  // capteur de cette scène (caméra perspective ou orthographique)
@@ -57,7 +58,7 @@ function drawDrawing(data, shape) {
 		
 		allFiguresSent.push(figureActu);
 		
-		if(shape != null && shape[i].pattern=="circle"){ //Si la forme est reconnue en tant que cercle
+		if(shape != null && shape[i].pattern=="circle" && shape[i].score > flexibiliteScore){ //Si la forme est reconnue en tant que cercle
 			//Création d'une sphere selon la profondeur et de la couleur du dessin en 2D
 			var geometry = new THREE.SphereGeometry(prof, 32, 32 );
 			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
@@ -66,21 +67,21 @@ function drawDrawing(data, shape) {
 			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
-		} else if (shape != null && shape[i].pattern=="square"){ //Si c'est un carré
+		} else if (shape != null && shape[i].pattern=="square" && shape[i].score > flexibiliteScore){ //Si c'est un carré
 			var g = createGeometry(figureActu, 4, prof); //Création de la forme 3D
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide; //Pour avoir la couleur des deux côtés des faces
 			var square = new THREE.Mesh(g, m);
 			scene.add(square);
 			allDrawingsRendered.push(square);
-		} else if (shape != null && shape[i].pattern=="triangle"){ : //Si c'est un triangle 
+		} else if (shape != null && shape[i].pattern=="triangle" && shape[i].score > flexibiliteScore){ //Si c'est un triangle 
 			var g = createGeometry(figureActu, 3, prof);//Création de la forme 3D
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide;
 			var triangle = new THREE.Mesh(g, m);
 			scene.add(triangle);
 			allDrawingsRendered.push(triangle);
-		} else { //Si la fogure n'est pas reconnue
+		} else { //Si la figure n'est pas reconnue
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
 			var geometry = new THREE.Geometry();
 			var geometry3D = new THREE.Geometry();
@@ -117,6 +118,36 @@ function drawDrawing(data, shape) {
 		}
 	}
 }
+
+// Fonction qui va renvoyer la liste des points d'angle
+function listerVertices(edges, listDelta) {
+    var i = 0;
+    var listVertices = [];
+
+    //Il s'agit là de trouver tous les angles que nous allons utiliser
+    //Il s'avère que certains angles sont les mêmes que d'autres à 1px près par exemple, nous les éliminons afin de n'en garder qu'un
+    while (i < edges){
+        var elem = listDelta[i];
+        var ok = true;
+
+        for(var j = 0; j < listVertices.length && ok == true; j++){
+            var vertCourant = listVertices[j];
+            //Test des angles deux à deux avec ceux que nous avons déjà gardé, afin de ne pas en avoir un en double
+            if(Math.abs(vertCourant[0] - elem[0]) < 20 && Math.abs(vertCourant[1] - elem[1]) < 20){
+                listDelta.splice(i, 1);
+                ok = false;
+            }
+        }
+
+        if(ok){
+            listVertices.push(elem);
+            i++;
+        }
+    }
+    
+    return listVertices;
+}
+
 
 //Fonction qui créé une forme en 3D selon la forme en 2D, le nombre d'angles de la forme, la profondeur voulue
 function createGeometry(forme, edges, depth){
@@ -184,31 +215,9 @@ function createGeometry(forme, edges, depth){
 		}
 	);
 	
-	console.log(listDelta);
-	
-	var i = 0;
-	var listVertices = [];
-	
-	//Il s'agit là de trouver tous les angles que nous allons utiliser
-	//Il s'avère que certains angles sont les mêmes que d'autres à 1px près par exemple, nous les éliminons afin de n'en garder qu'un
-	while (i < edges){
-		var elem = listDelta[i];
-		var ok = true;
-		
-		for(var j = 0; j < listVertices.length && ok == true; j++){
-			var vertCourant = listVertices[j];
-			//Test des angles deux à deux avec ceux que nous avons déjà gardé, afin de ne pas en avoir un en double
-			if(Math.abs(vertCourant[0] - elem[0]) < 20 && Math.abs(vertCourant[1] - elem[1]) < 20){
-				listDelta.splice(i, 1);
-				ok = false;
-			}
-		}
-		
-		if(ok){
-			listVertices.push(elem);
-			i++;
-		}
-	}
+	//console.log(listDelta);
+        
+	var listVertices = listerVertices(edges, listDelta);
 	
 	//Retriage des angles selon leur ordre afin de pouvoir créer les faces
 	listVertices.sort(
@@ -269,7 +278,12 @@ function ajoutFigure()
         console.log("ajout de la forme " + nomFigure + " à la détection");
         var figure = allFiguresSent[0];
         console.log(figure);
+        //var listVertices = listerVertices(edges, listDelta);
+        
         detector.learn(nomFigure, figure);
+        for(var i = 0; i < detector.patterns.length; i++) {
+            console.log(detector.patterns[i]);
+        }
     }
     $("#nomfigure").val("");
     $('#myModal').modal('hide');

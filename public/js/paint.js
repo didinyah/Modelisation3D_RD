@@ -244,7 +244,7 @@ function touchEnd(event)
 
 function ajoutRange() {
     var depth = $('input[type="range"]').val();
-    applyDepth(depth*10);
+    applyDepth(depth*20);
     // $('input[type="range"]').val(1);
     $('#myModalRange').modal('hide');
 }
