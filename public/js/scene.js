@@ -79,13 +79,13 @@ function drawDrawing(data, shape) {
 				var figuApres = figureActu[i+1];
 				var figuCourante = figureActu[i];
 				
-				var deltaX = figuApres.x - figuAvant.x;
-				var deltaY = figuApres.y - figuAvant.y;
+				var deltaX = (figuApres.x - figuAvant.x)/2;
+				var deltaY = (figuApres.y - figuAvant.y)/2;
 				
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
 				
-				if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
+				if(abs(reelX - deltaX) > 0.1 || abs(reelY - deltaY) > 0.1){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				}
 				
@@ -120,6 +120,7 @@ function drawDrawing(data, shape) {
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
+			console.log(geometry.vertices);
 			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
 			
 			var triangle = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
