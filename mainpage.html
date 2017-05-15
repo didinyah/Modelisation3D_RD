@@ -110,7 +110,7 @@
                 }
             });
             
-            // on met la caméra du téléphone
+            // On met la caméra du téléphone
             //List cameras and microphones.
             if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
                 alert("enumerateDevices() not supported.");
@@ -123,16 +123,15 @@
                     })
                 });
 
-              // Put event listeners into place
-              window.addEventListener("DOMContentLoaded", function () {
+            // Put event listeners into place
+            window.addEventListener("DOMContentLoaded", function () {
                 haveId.then(function(dev) {
-                    alert("ID back : "+ dev.deviceId);
+                    //alert("ID back : "+ dev.deviceId);
                     var constraints = { video: { deviceId: dev.deviceId } };
                     var video = document.querySelector('video');
                     navigator.mediaDevices.getUserMedia(constraints).
                       then(handleSuccess).catch(handleError);
                     function handleSuccess(stream) {
-                        alert("success !");
                       window.stream = stream; // stream available to console
                       video.src = window.URL.createObjectURL(stream);
 
@@ -145,23 +144,8 @@
                 })
                 .catch(function (err) {
                     console.log(err.name + ": " + err.message);
-                    });
                 });
-            /*navigator.mediaDevices.enumerateDevices()
-            .then(function (devices) {
-                devices.forEach(function (device) {
-                    if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
-                        idCameraBack = device.deviceId;
-                        alert("ID back : " + idCameraBack);
-                    }
-                });
-            })
-            .catch(function (err) {
-                console.log(err.name + ": " + err.message);
-            });*/
-            
-
-            
+            });
         }
         
         var socket = io();
@@ -179,9 +163,9 @@
             console.log(figuresReconnues);
         });
         
-        socket.on('figure_detection', function(data){
+        /*socket.on('figure_detection', function(data){
             alert("Figure reconnue : " + data);
-        });
+        });*/
         
     
     </script>
