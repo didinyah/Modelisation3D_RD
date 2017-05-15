@@ -260,8 +260,6 @@ function createGeometry(forme, edges, depth){
 function detectDrawing(data) { 
     // On va détecter toutes les figures
     var allFiguresReconnues = [];
-	
-    var detector = new ShapeDetector(ShapeDetector.defaultShapes);
     for(var i=0; i<data.length; i++) {
         var figure = data[i].figure;
         var figureReconnue = detector.spot(figure);
@@ -278,14 +276,8 @@ function ajoutFigure()
         console.log("ajout de la forme " + nomFigure + " à la détection");
         var figure = allFiguresSent[0];
         console.log(figure);
-        //var listVertices = listerVertices(edges, listDelta);
         
         detector.learn(nomFigure, figure);
-        
-        console.log(detector.spot(figure, nomFigure)); // on regarde le match entre la forme ajoutée et la forme apprise
-        for(var i = 0; i < detector.patterns.length; i++) {
-            console.log(detector.patterns[i]);
-        }
     }
     $("#nomfigure").val("");
     $('#myModal').modal('hide');
