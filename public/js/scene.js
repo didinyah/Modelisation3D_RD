@@ -51,6 +51,8 @@ var detector = new ShapeDetector(ShapeDetector.defaultShapes);
 function drawDrawing(data, shape) {
 	for(var i=0; i<data.length; i++) {
 		var figureActu = data[i].figure;
+		var prof = data[i].depth;
+		
 		allFiguresSent.push(figureActu);
 		
 		if(shape != null && shape[i].pattern=="circle"){
@@ -69,13 +71,13 @@ function drawDrawing(data, shape) {
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square"){
-			var g = createGeometry(figureActu, 4);
+			var g = createGeometry(figureActu, 4, prof);
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide;
 			var square = new THREE.Mesh(g, m);
 			scene.add(square);
 		} else if (shape != null && shape[i].pattern=="triangle"){
-			var g = createGeometry(figureActu, 3);
+			var g = createGeometry(figureActu, 3, prof);
 			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
 			m.side = THREE.DoubleSide;
 			var triangle = new THREE.Mesh(g, m);
@@ -96,7 +98,7 @@ function drawDrawing(data, shape) {
 			//Création des points, et création de la 3D
 			for(var j=0; j<figureActu.length; j++) {
 				var pointActu = figureActu[j];
-				geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, data[i].depth));
+				geometry3D.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, prof));
 			}
 			var line = new THREE.Line(geometry3D, material);
 			scene.add(line);
@@ -107,7 +109,7 @@ function drawDrawing(data, shape) {
 				var pointActu = figureActu[j];
 	    
 				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, 0));
-				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, data[i].depth));
+				geometryFill.vertices.push(new THREE.Vector3(pointActu.x, (pointActu.y)*-1, prof));
 				var line = new THREE.Line(geometryFill, material);
 				scene.add(line);
 				allDrawingsRendered.push(line);
@@ -116,7 +118,7 @@ function drawDrawing(data, shape) {
 	}
 }
 
-function createGeometry(forme, edges){
+function createGeometry(forme, edges, depth){
 	var geometry = new THREE.Geometry()
 			
 	var erreur = 0.0001;
@@ -207,9 +209,14 @@ function createGeometry(forme, edges){
 		var elem = listVertices[i];
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
 	}
+	for(var i = 0; i < listVertices.length; i++){
+		var elem = listVertices[i];
+		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],depth));
+	}
 	
 	for(var i = 0; i < edges-2; i++){
 		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
+		geometry.faces.push(new THREE.Face3(0, edges+i+1, edges+i+2));
 	}
 	
 	return geometry;
