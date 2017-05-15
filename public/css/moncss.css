@@ -17,10 +17,11 @@ body {
     position: absolute;
     left:0;
     bottom:0;
+    z-index:20;
 }
 
 #vid {
     position: absolute;
-    height: 50%;
-    width: 50%;
+    height: 90%;
+    width: 90%;
 }
