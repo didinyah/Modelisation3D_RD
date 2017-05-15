@@ -71,83 +71,7 @@ function drawDrawing(data, shape) {
 		} else if (shape != null && shape[i].pattern=="square"){
 			
 		} else if (shape != null && shape[i].pattern=="triangle"){
-			var geometry = new THREE.Geometry()
-			
-			var erreur = 0.0001;
-			var listDelta = [];
-			
-			//Boucle de reconnaissance des angles, qui créé les vertices 
-			for(var i = 1; i < figureActu.length-1; i++){
-				var figuAvant = figureActu[i-1];
-				var figuApres = figureActu[i+1];
-				var figuCourante = figureActu[i];
-				
-				var deltaX = (figuApres.x + figuAvant.x)/2;
-				var deltaY = (figuApres.y + figuAvant.y)/2;
-				
-				var reelX = figuCourante.x;
-				var reelY = figuCourante.y;
-				
-				if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-					listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-					console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
-				}
-			};
-			
-			var figuAvant = figureActu[figureActu.length-2];
-			var figuApres = figureActu[0];
-			var figuCourante = figureActu[figureActu.length-1];
-				
-			var deltaX = (figuApres.x + figuAvant.x)/2;
-			var deltaY = (figuApres.y + figuAvant.y)/2;
-				
-			var reelX = figuCourante.x;
-			var reelY = figuCourante.y;
-				
-			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-				listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
-			}
-			
-			var figuAvant = figureActu[figureActu.length-1];
-			var figuApres = figureActu[1];
-			var figuCourante = figureActu[0];
-				
-			var deltaX = (figuApres.x + figuAvant.x)/2;
-			var deltaY = (figuApres.y + figuAvant.y)/2;
-				
-			var reelX = figuCourante.x;
-			var reelY = figuCourante.y;
-			
-			if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-				listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
-			}
-			
-			listDelta.sort(
-				function(x, y)
-				{
-					return x[2] < y[2];
-				}
-			);
-			
-			var elem1 = listDelta[0];
-			var elem2 = listDelta[1];
-			var elem3 = listDelta[2];
-			
-			if(elem1[0] - elem2[0] < 0.001 && elem1[1] - elem2[1] < 0.001){
-				elem2 = elem3;
-				elem3 = listDelta[3];
-			}
-			
-			geometry.vertices.push(new THREE.Vector3(elem1[0],elem1[1],0));
-			geometry.vertices.push(new THREE.Vector3(elem2[0],elem2[1],0));
-			geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
-			
-			geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-			
-			console.log(geometry.vertices);
-			var triangle = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
+			var triangle = new THREE.Mesh(createGeometry(figureActu), new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false }));
 			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
@@ -183,6 +107,84 @@ function drawDrawing(data, shape) {
 			}
 		}
 	}
+}
+
+function createGeometry(forme){
+	var geometry = new THREE.Geometry()
+			
+	var erreur = 0.0001;
+	var listDelta = [];
+			
+	//Boucle de reconnaissance des angles, qui créé les vertices 
+	for(var i = 1; i < forme.length-1; i++){
+		var figuAvant = forme[i-1];
+		var figuApres = forme[i+1];
+		var figuCourante = forme[i];
+		
+		var deltaX = (figuApres.x + figuAvant.x)/2;
+		var deltaY = (figuApres.y + figuAvant.y)/2;
+		
+		var reelX = figuCourante.x;
+		var reelY = figuCourante.y;
+				
+		if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
+			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+			console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
+		}
+	};
+		
+	var figuAvant = forme[forme.length-2];
+	var figuApres = forme[0];
+	var figuCourante = forme[forme.length-1];
+		
+	var deltaX = (figuApres.x + figuAvant.x)/2;
+	var deltaY = (figuApres.y + figuAvant.y)/2;
+				
+	var reelX = figuCourante.x;
+	var reelY = figuCourante.y;
+				
+	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+		console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
+	}
+		
+	var figuAvant = forme[forme.length-1];
+	var figuApres = forme[1];
+	var figuCourante = forme[0];
+				
+	var deltaX = (figuApres.x + figuAvant.x)/2;
+	var deltaY = (figuApres.y + figuAvant.y)/2;
+				
+	var reelX = figuCourante.x;
+	var reelY = figuCourante.y;
+			
+	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+		console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
+	}
+			
+	listDelta.sort(
+		function(x, y)
+		{
+			return x[2] < y[2];
+		}
+	);
+		
+	var elem1 = listDelta[0];
+	var elem2 = listDelta[1];
+	var elem3 = listDelta[2];
+	
+	if(elem1[0] - elem2[0] < 0.001 && elem1[1] - elem2[1] < 0.001){
+		elem2 = elem3;
+		elem3 = listDelta[3];
+	}
+			
+	geometry.vertices.push(new THREE.Vector3(elem1[0],elem1[1],0));
+	geometry.vertices.push(new THREE.Vector3(elem2[0],elem2[1],0));
+	geometry.vertices.push(new THREE.Vector3(elem3[0],elem3[1],0));
+	
+	geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+	return geometry;
 }
 
 function detectDrawing(data) { 
