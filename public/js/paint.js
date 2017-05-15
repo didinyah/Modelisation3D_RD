@@ -244,7 +244,7 @@ function touchEnd(event)
 
 function ajoutRange() {
     var depth = $('input[type="range"]').val();
-    applyDepth(depth);
+    applyDepth(depth*10);
     // $('input[type="range"]').val(1);
 }
 
@@ -256,7 +256,7 @@ if (isMobile) {
     touchzone.addEventListener("touchmove", touchMove, false);
     touchzone.addEventListener("touchend", touchEnd, false);
 }
-$("#confirmAjoutFigure").on('click', ajoutRange);
+$("#confirmRangeFigure").on('click', ajoutRange);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
 $("#deletelastpointbtn").on('click', deleteLastPointBtn);
