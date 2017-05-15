@@ -69,9 +69,16 @@ function drawDrawing(data, shape) {
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square"){
-			
+			var g = createGeometry(figureActu, 4);
+			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
+			m.side = THREE.DoubleSide;
+			var square = new THREE.Mesh(g, m);
+			scene.add(square);
 		} else if (shape != null && shape[i].pattern=="triangle"){
-			var triangle = new THREE.Mesh(createGeometry(figureActu, 3), new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false }));
+			var g = createGeometry(figureActu, 3);
+			var m = new THREE.MeshBasicMaterial({ color: colors[(data[i].color)%colors.length], wireframe: false });
+			m.side = THREE.DoubleSide;
+			var triangle = new THREE.Mesh(g, m);
 			scene.add(triangle);
 		} else {
 			var material = new THREE.LineBasicMaterial( { color: colors[(data[i].color)%colors.length], linewidth: 4 } );
@@ -184,8 +191,11 @@ function createGeometry(forme, edges){
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
 		i++;
 	}
-	console.log(geometry.vertices);
-	geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+	
+	for(var i = 0; i < edges-2; i++){
+		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
+	}
+	
 	return geometry;
 }
 
