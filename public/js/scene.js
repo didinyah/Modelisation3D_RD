@@ -69,39 +69,51 @@ function drawDrawing(data, shape) {
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square"){
-			var f = figureActu[i];
-			console.log(f.x);
+			
 		} else if (shape != null && shape[i].pattern=="triangle"){
 			var geometry = new THREE.Geometry()
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
 			for(var i = 1; i < figureActu.length-1; i++){
-				var deltaX = figureActu[i+1].x - figureActu[i-1].x;
-				var deltaY = figureActu[i+1].y - figureActu[i-1].y;
+				var figuAvant = figureActu[i-1];
+				var figuApres = figureActu[i+1];
+				var figuCourante = figureActu[i];
 				
-				var reelX = figureActu[i].x;
-				var reelY = figureActu[i].y;
+				var deltaX = figuApres.x - figuAvant.x;
+				var deltaY = figuApres.y - figuAvant.y;
+				
+				var reelX = figuCourante.x;
+				var reelY = figuCourante.y;
 				
 				if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				}
 			};
-			var deltaX = figureActu[figureActu.length-2].x - figureActu[figureActu.length-2].x;
-			var deltaY = figureActu[0].y - figureActu[0].y;
+			
+			var figuAvant = figureActu[figureActu.length-2];
+			var figuApres = figureActu[0];
+			var figuCourante = figureActu[figureActu.length-1];
 				
-			var reelX = figureActu[figureActu.length-1].x;
-			var reelY = figureActu[figureActu.length-1].y;
+			var deltaX = figuApres.x - figuAvant.x;
+			var deltaY = figuApres.y - figuAvant.y;
+				
+			var reelX = figuCourante.x;
+			var reelY = figuCourante.y;
 				
 			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
 			
-			deltaX = figureActu[figureActu.length-1].x - figureActu[figureActu.length-1].x;
-			deltaY = figureActu[1].y - figureActu[1].y;
+			var figuAvant = figureActu[figureActu.length-1];
+			var figuApres = figureActu[1];
+			var figuCourante = figureActu[0];
 				
-			reelX = figureActu[0].x;
-			reelY = figureActu[0].y;
+			var deltaX = figuApres.x - figuAvant.x;
+			var deltaY = figuApres.y - figuAvant.y;
 				
+			var reelX = figuCourante.x;
+			var reelY = figuCourante.y;
+			
 			if(reelX - deltaX < 0.001 && reelY - deltaY < 0.001){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 			}
