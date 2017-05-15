@@ -135,7 +135,7 @@ function createGeometry(forme, edges){
 		var reelY = figuCourante.y;
 				
 		if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
 		}
 	};
 		
@@ -150,7 +150,7 @@ function createGeometry(forme, edges){
 	var reelY = figuCourante.y;
 				
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
 	}
 		
 	var figuAvant = forme[forme.length-1];
@@ -164,7 +164,7 @@ function createGeometry(forme, edges){
 	var reelY = figuCourante.y;
 			
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
 	}
 			
 	listDelta.sort(
