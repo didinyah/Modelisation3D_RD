@@ -118,9 +118,9 @@
             
             var haveId = navigator.mediaDevices.enumerateDevices()
                 .then(function(devices){ 
-                    devices.find(function(d) {
+                    alert( "bwa : " + devices.find(function(d) {
                         d.kind == "videoinput" && d.label.indexOf("back") >= 0
-                    })
+                    }));
                 });
 
               // Put event listeners into place
