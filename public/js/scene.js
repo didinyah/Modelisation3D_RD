@@ -64,7 +64,7 @@ function drawDrawing(data, shape) {
 			var material = new THREE.MeshBasicMaterial( {color: colors[(data[i].color)%colors.length]} );
 			var sphere = new THREE.Mesh( geometry, material );
 			
-			sphere.position.set(pointInit.x, (pointInit.y)*-1, 0);
+			sphere.position.set(figureActu.x, (figureActu.y)*-1, 0);
 			scene.add( sphere );
 			allDrawingsRendered.push(sphere);
 		} else if (shape != null && shape[i].pattern=="square" && shape[i].score > flexibiliteScore){ //Si c'est un carré
