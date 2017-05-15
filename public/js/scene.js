@@ -136,7 +136,6 @@ function createGeometry(forme, edges){
 				
 		if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-			console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 		}
 	};
 		
@@ -152,7 +151,6 @@ function createGeometry(forme, edges){
 				
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-		console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 	}
 		
 	var figuAvant = forme[forme.length-1];
@@ -167,7 +165,6 @@ function createGeometry(forme, edges){
 			
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
 		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)]);
-		console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 	}
 			
 	listDelta.sort(
@@ -177,6 +174,7 @@ function createGeometry(forme, edges){
 		}
 	);
 	
+	console.log(listDelta);
 	
 	var i = 0;
 	if(edges > 1){
@@ -191,6 +189,8 @@ function createGeometry(forme, edges){
 		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
 		i++;
 	}
+	
+	console.log(geometry.vertices);
 	
 	for(var i = 0; i < edges-2; i++){
 		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
