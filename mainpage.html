@@ -125,9 +125,9 @@
 
               // Put event listeners into place
               window.addEventListener("DOMContentLoaded", function () {
-                haveId.then(function(dev) {
-                  alert("ID back : "+ dev.id);
-                  var constraints = { video: { deviceId: dev.id } };
+                haveId.then(function(id) {
+                  alert("ID back : "+ JSON.stringify(id, null, 4));
+                  var constraints = { video: { deviceId: id } };
                   var video = document.querySelector('video');
                   navigator.mediaDevices.getUserMedia(constraints).
                     then(handleSuccess).catch(handleError);
