@@ -74,7 +74,7 @@ function drawDrawing(data, shape) {
 			var geometry = new THREE.Geometry()
 			
 			//Boucle de reconnaissance des angles, qui créé les vertices 
-			for(int i = 1; i < figureActu.length-1; i++){
+			for(var i = 1; i < figureActu.length-1; i++){
 				var deltaX = figureActu[i+1].x - figureActu[i-1].x;
 				var deltaY = figureActu[i+1].y - figureActu[i-1].y;
 				
