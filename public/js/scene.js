@@ -85,7 +85,7 @@ function drawDrawing(data, shape) {
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
 				
-				if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
+				if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
 					geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 					console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 				}
@@ -101,7 +101,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 				
-			if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
+			if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
@@ -116,7 +116,7 @@ function drawDrawing(data, shape) {
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
 			
-			if(Math.abs(reelX - deltaX) > 0.0001 || Math.abs(reelY - deltaY) > 0.0001){
+			if(Math.abs(reelX - deltaX) > 2 || Math.abs(reelY - deltaY) > 2){
 				geometry.vertices.push(new THREE.Vector3(reelX,reelY,0));
 				console.log("EcartX = "+Math.abs(reelX - deltaX)+", EcartY = "+Math.abs(reelY - deltaY));
 			}
