@@ -79,8 +79,8 @@ function drawDrawing(data, shape) {
 				var figuApres = figureActu[i+1];
 				var figuCourante = figureActu[i];
 				
-				var deltaX = (figuApres.x - figuAvant.x)/2;
-				var deltaY = (figuApres.y - figuAvant.y)/2;
+				var deltaX = (figuApres.x + figuAvant.x)/2;
+				var deltaY = (figuApres.y + figuAvant.y)/2;
 				
 				var reelX = figuCourante.x;
 				var reelY = figuCourante.y;
@@ -96,8 +96,8 @@ function drawDrawing(data, shape) {
 			var figuApres = figureActu[0];
 			var figuCourante = figureActu[figureActu.length-1];
 				
-			var deltaX = (figuApres.x - figuAvant.x)/2;
-			var deltaY = (figuApres.y - figuAvant.y)/2;
+			var deltaX = (figuApres.x + figuAvant.x)/2;
+			var deltaY = (figuApres.y + figuAvant.y)/2;
 				
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
@@ -110,8 +110,8 @@ function drawDrawing(data, shape) {
 			var figuApres = figureActu[1];
 			var figuCourante = figureActu[0];
 				
-			var deltaX = (figuApres.x - figuAvant.x)/2;
-			var deltaY = (figuApres.y - figuAvant.y)/2;
+			var deltaX = (figuApres.x + figuAvant.x)/2;
+			var deltaY = (figuApres.y + figuAvant.y)/2;
 				
 			var reelX = figuCourante.x;
 			var reelY = figuCourante.y;
