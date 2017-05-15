@@ -126,16 +126,27 @@
               // Put event listeners into place
               window.addEventListener("DOMContentLoaded", function () {
                 haveId.then(function(dev) {
-                  alert("ID back : "+ dev.deviceId);
-                  var constraints = { video: { deviceId: dev.deviceId } };
-                  var video = document.querySelector('video');
-                  navigator.mediaDevices.getUserMedia(constraints).
-                    then(handleSuccess).catch(handleError);
-              })
-              .catch(function (err) {
-                console.log(err.name + ": " + err.message);
+                    alert("ID back : "+ dev.deviceId);
+                    var constraints = { video: { deviceId: dev.deviceId } };
+                    var video = document.querySelector('video');
+                    navigator.mediaDevices.getUserMedia(constraints).
+                      then(handleSuccess).catch(handleError);
+                    function handleSuccess(stream) {
+                        alert("success !");
+                      window.stream = stream; // stream available to console
+                      video.src = window.URL.createObjectURL(stream);
+
+                    }
+
+                    function handleError(error) {
+                        alert("error !");
+                      console.log('navigator.getUserMedia error: ', error);
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err.name + ": " + err.message);
+                    });
                 });
-              });
             /*navigator.mediaDevices.enumerateDevices()
             .then(function (devices) {
                 devices.forEach(function (device) {
@@ -148,15 +159,7 @@
             .catch(function (err) {
                 console.log(err.name + ": " + err.message);
             });*/
-            function handleSuccess(stream) {
-              window.stream = stream; // stream available to console
-              video.src = window.URL.createObjectURL(stream);
-              
-            }
-
-            function handleError(error) {
-              console.log('navigator.getUserMedia error: ', error);
-            }
+            
 
             
         }
