@@ -16,6 +16,7 @@
         <canvas id="mycanvas">
             This text is displayed if your browser does not support HTML5 Canvas.
         </canvas>
+        <video autoplay></video>
         <div id="panelbtn" class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
                 <button id="validatebtn" name="validatebtn" class="btn btn-success" type="button"><i class='fa fa-check'></i></button>
@@ -100,7 +101,7 @@
             document.body.appendChild(scene_script);
         }
         else {
-            // on init le slider 
+            // on initialise le slider (profondeur des figures)
             $('input[type="range"]').rangeslider({
                 polyfill: false,
                 onSlide: function(position, value) {
@@ -108,6 +109,25 @@
                   output.innerHTML = value;
                 }
             });
+            
+            // on met la caméra du téléphone
+            var constraints = {
+                video: true
+            };
+
+            var video = document.querySelector('video');
+
+            function handleSuccess(stream) {
+              window.stream = stream; // stream available to console
+              video.src = window.URL.createObjectURL(stream);
+            }
+
+            function handleError(error) {
+              console.log('navigator.getUserMedia error: ', error);
+            }
+
+            navigator.mediaDevices.getUserMedia(constraints).
+                then(handleSuccess).catch(handleError);
         }
         
         var socket = io();
