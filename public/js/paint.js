@@ -257,6 +257,10 @@ if (isMobile) {
     touchzone.addEventListener("touchmove", touchMove, false);
     touchzone.addEventListener("touchend", touchEnd, false);
 }
+// clic sur valider va trigger la fonction juste en dessous, donc pas besoin d'appliquer 2 fois la depth
+$("#confirmRangeFigure").on('click', function() {
+    $('#myModalRange').modal('hide');
+});
 $("#myModalRange").on('hidden.bs.modal', ajoutRange);
 $("#validatebtn").on('click', validateBtn);
 $("#returnbtn").on('click', cancelBtn);
