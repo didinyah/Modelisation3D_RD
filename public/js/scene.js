@@ -135,7 +135,7 @@ function createGeometry(forme, edges){
 		var reelY = figuCourante.y;
 				
 		if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
+			listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY), listDelta.length]);
 		}
 	};
 		
@@ -150,7 +150,7 @@ function createGeometry(forme, edges){
 	var reelY = figuCourante.y;
 				
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY), listDelta.length]);
 	}
 		
 	var figuAvant = forme[forme.length-1];
@@ -164,7 +164,7 @@ function createGeometry(forme, edges){
 	var reelY = figuCourante.y;
 			
 	if(Math.abs(reelX - deltaX) > erreur || Math.abs(reelY - deltaY) > erreur){
-		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY)], listDelta.length);
+		listDelta.push([reelX, reelY, Math.abs(reelX - deltaX)+Math.abs(reelY - deltaY), listDelta.length]);
 	}
 			
 	listDelta.sort(
@@ -197,7 +197,16 @@ function createGeometry(forme, edges){
 		}
 	}
 	
-	console.log(geometry.vertices);
+	console.log(listVertices);
+	
+	listVertices.sort(
+		function(x, y)
+		{
+			return x[3] > y[3];
+		}
+	);
+	
+	console.log(listVertices);
 	
 	for(var i = 0; i < edges-2; i++){
 		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
