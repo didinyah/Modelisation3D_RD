@@ -246,6 +246,7 @@ function ajoutRange() {
     var depth = $('input[type="range"]').val();
     applyDepth(depth*10);
     // $('input[type="range"]').val(1);
+    $('#myModalRange').modal('hide');
 }
 
 // Ajout des évenements
