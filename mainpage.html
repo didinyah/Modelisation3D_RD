@@ -119,10 +119,11 @@
             navigator.mediaDevices.enumerateDevices()
             .then(function (devices) {
                 devices.forEach(function (device) {
-                    if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
-                        Id = device.deviceId;
-                        alert("ID 1 : " + Id);
-                    }
+                    /*if (device.kind == "videoinput" && device.label.indexOf('back') >= 0) {
+                        
+                    }*/
+                    Id = device.deviceId;
+                    alert("ID 3 : " + Id);
                 });
             })
             .catch(function (err) {
