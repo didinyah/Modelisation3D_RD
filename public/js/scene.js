@@ -191,13 +191,10 @@ function createGeometry(forme, edges){
 		}
 		
 		if(ok){
-			geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
 			listVertices.push(elem);
 			i++;
 		}
 	}
-	
-	console.log(listVertices);
 	
 	listVertices.sort(
 		function(x, y)
@@ -206,7 +203,10 @@ function createGeometry(forme, edges){
 		}
 	);
 	
-	console.log(listVertices);
+	for(var i = 0; i < listVertices.length; i++){
+		var elem = listVertices[i];
+		geometry.vertices.push(new THREE.Vector3(elem[0],elem[1],0));
+	}
 	
 	for(var i = 0; i < edges-2; i++){
 		geometry.faces.push(new THREE.Face3(0, i+1, i+2));
