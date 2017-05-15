@@ -263,6 +263,7 @@ function detectDrawing(data) {
     for(var i=0; i<data.length; i++) {
         var figure = data[i].figure;
         var figureReconnue = detector.spot(figure);
+        figureReconnue.color = colors[figure.color];
         allFiguresReconnues.push(figureReconnue);
     }
     return allFiguresReconnues;
@@ -275,7 +276,6 @@ function ajoutFigure()
         // On ajoute la figure créée au détecteur de formes
         console.log("ajout de la forme " + nomFigure + " à la détection");
         var figure = allFiguresSent[0];
-        console.log(figure);
         
         detector.learn(nomFigure, figure);
     }

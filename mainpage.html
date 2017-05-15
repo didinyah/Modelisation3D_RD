@@ -13,9 +13,11 @@
         <link rel="stylesheet" href="css/moncss.css" type="text/css">
     </head>
     <body>
+        <!-- canvas de dessin -->
         <canvas id="mycanvas">
             This text is displayed if your browser does not support HTML5 Canvas.
         </canvas>
+        <!-- Video = camera arrière si possible -->
         <video id="vid" autoplay></video>
         <div id="panelbtn" class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
@@ -37,6 +39,13 @@
             <div class="btn-group" role="group">
                 <button id="sendbtn" name="sendbtn" class="btn btn-success" type="button"><i class='fa fa-cloud-upload'></i></button>
             </div>
+        </div>
+        
+        <!-- Liste des figures -->
+        <div id="panelListFigures">
+            <ul id="listFiguresReconnues">
+                
+            </ul>
         </div>
         
         <!-- Modal pour l'ajout de figure -->
@@ -101,6 +110,7 @@
             document.body.appendChild(scene_script);
         }
         else {
+            $("#panelListFigures").hide();
             // on initialise le slider (profondeur des figures)
             $('input[type="range"]').rangeslider({
                 polyfill: false,
@@ -162,6 +172,13 @@
             var figuresReconnues = detectDrawing(data);
             drawDrawing(data, figuresReconnues);
             console.log(figuresReconnues);
+            // on affiche les figures reconnues sur la liste, on la vide d'abord
+            $("#listFiguresReconnues").empty();
+            for(var i=0; i<figuresReconnues.length; i++) {
+                var figureActu = figuresReconnues[i];
+                var scorePercent = (figureActu.score*100).toFixed(2);
+                $("#listFiguresReconnues").append('<li>Figure ' + figureActu.color + ': ' + figureActu.pattern + +' à ' + scorePercent +'%</li>');
+            }
         });
         
         /*socket.on('figure_detection', function(data){
